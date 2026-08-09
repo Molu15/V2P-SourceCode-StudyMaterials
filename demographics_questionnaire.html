@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Demographics - V2P Main Study</title>
+<style>
+  :root{
+    --ink:#1c2024;
+    --ink-soft:#5a6168;
+    --paper:#f7f6f3;
+    --panel:#ffffff;
+    --line:#dcd9d2;
+    --accent:#2b5797;
+    --accent-soft:#e8eef6;
+    --warn:#a6420f;
+    --warn-soft:#fbeee5;
+    --good:#2f6e4e;
+    --mono:'IBM Plex Mono','SF Mono',Consolas,monospace;
+    --serif:'Source Serif Pro',Georgia,serif;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --radius:3px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:var(--sans);}
+  .shell{max-width:720px;margin:0 auto;padding:28px 20px 80px;}
+
+  .labelband{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:22px;}
+  .labelband .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
+  .labelband .title{font-family:var(--serif);font-size:20px;font-weight:600;}
+
+  .meta-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-bottom:20px;}
+  .meta-card h2{font-family:var(--serif);font-size:16px;margin:0 0 14px;}
+  .meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px 24px 20px;margin-bottom:18px;}
+  .card .sub{color:var(--ink-soft);font-size:13px;margin-bottom:18px;line-height:1.5;}
+
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:12.5px;font-weight:600;margin-bottom:6px;color:var(--ink);}
+  .field input[type=text], .field input[type=number], .field select{
+    width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:2px;font-size:14px;font-family:var(--sans);background:#fff;
+  }
+
+  .btn-row{display:flex;justify-content:flex-end;gap:10px;margin-top:8px;}
+  button{font-family:var(--sans);font-size:13.5px;font-weight:600;padding:12px 20px;border-radius:2px;border:1px solid var(--ink);cursor:pointer;background:var(--ink);color:#fff;}
+  button.ghost{background:transparent;color:var(--ink);}
+
+  .banner{border-left:3px solid var(--accent);background:var(--accent-soft);padding:10px 14px;font-size:12.5px;line-height:1.5;border-radius:0 2px 2px 0;margin-bottom:18px;}
+
+  .export-box{background:#11141a;color:#d7e3f4;border-radius:var(--radius);padding:16px;font-family:var(--mono);font-size:11px;line-height:1.6;max-height:220px;overflow:auto;white-space:pre-wrap;word-break:break-all;margin-bottom:14px;}
+  footer.note{text-align:center;font-size:11px;color:var(--ink-soft);margin-top:30px;font-family:var(--mono);}
+</style>
+</head>
+<body>
+<div class="shell" id="shell"></div>
+
+<script>
+/* ============================================================
+   DEMOGRAPHICS & SCREENING - STANDALONE QUESTIONNAIRE
+   Filled once per participant (not per condition).
+   ============================================================ */
+
+const FIELDS = [
+  {key:'age', label:'Age (years)', type:'number'},
+  {key:'gender', label:'Gender', type:'select', opts:['Female','Male','Non-binary','Prefer not to say','Self-describe']},
+  {key:'occupation', label:'Occupation / field of study', type:'text'},
+  {key:'phoneUseWalking', label:'How often do you use your phone while walking/crossing streets?', type:'select', opts:['Never','Rarely','Sometimes','Often','Always']},
+  {key:'avExperience', label:'Prior experience with autonomous/automated vehicles', type:'select', opts:['None','Heard about it only','Ridden in one','Work/research in this field']},
+  {key:'v2pExperience', label:'Prior experience with pedestrian warning apps or V2X systems', type:'select', opts:['None','Heard about it only','Used something similar','Work/research in this field']},
+  {key:'nearMiss', label:'Have you experienced a near-miss traffic incident while distracted by your phone?', type:'select', opts:['No','Yes, minor','Yes, serious']},
+];
+
+const SCREENING_ITEMS = [
+  {key:'smartphone', text:'Owns and regularly uses a smartphone (daily).'},
+  {key:'vision', text:'Normal or corrected-to-normal vision.'},
+  {key:'hearing', text:'Normal or corrected-to-normal hearing.'},
+  {key:'mobility', text:'Able to stand and walk ~2-3 meters unassisted.'},
+  {key:'noMotionSick', text:'No history of severe motion sickness / simulator sickness.'},
+];
+
+let meta = { pid:'', date:new Date().toISOString().slice(0,10) };
+let demo = {};
+let screening = {};
+SCREENING_ITEMS.forEach(it => screening[it.key] = false);
+
+function render(){
+  const shell = document.getElementById('shell');
+  shell.innerHTML = '';
+
+  const header = document.createElement('div');
+  header.className = 'labelband';
+  header.innerHTML = `<div class="title">Demographics &amp; Screening</div><div class="tag">V2P Main Study</div>`;
+  shell.appendChild(header);
+
+  const banner = document.createElement('div');
+  banner.className = 'banner';
+  banner.innerHTML = 'Filled once per participant, before the first condition block. Data is kept only in this browser tab until you download.';
+  shell.appendChild(banner);
+
+  const metaCard = document.createElement('div');
+  metaCard.className = 'meta-card';
+  metaCard.innerHTML = `
+    <h2>Session Details</h2>
+    <div class="meta-grid">
+      <div class="field"><label>Participant ID</label><input type="text" id="m_pid" placeholder="P01" value="${meta.pid}"></div>
+      <div class="field"><label>Session date</label><input type="text" id="m_date" value="${meta.date}"></div>
+    </div>
+  `;
+  shell.appendChild(metaCard);
+
+  // Screening card
+  const screenCard = document.createElement('div');
+  screenCard.className = 'card';
+  screenCard.innerHTML = `<h2 style="font-family:var(--serif);font-size:16px;margin:0 0 6px;">Eligibility Screening</h2><div class="sub">Experimenter-administered, based on participant self-report.</div>`;
+  SCREENING_ITEMS.forEach(it => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;gap:10px;align-items:flex-start;padding:10px;border:1px solid var(--line);border-radius:2px;margin-bottom:8px;background:#fcfcfb;';
+    row.innerHTML = `<input type="checkbox" id="s_${it.key}" style="margin-top:2px;"><span style="font-size:13px;line-height:1.5;">${it.text}</span>`;
+    screenCard.appendChild(row);
+  });
+  shell.appendChild(screenCard);
+
+  // Demographics card
+  const demoCard = document.createElement('div');
+  demoCard.className = 'card';
+  demoCard.innerHTML = `<h2 style="font-family:var(--serif);font-size:16px;margin:0 0 6px;">Demographics &amp; Prior Experience</h2><div class="sub">Self-report by participant.</div>`;
+  FIELDS.forEach(f => {
+    const fd = document.createElement('div');
+    fd.className = 'field';
+    if(f.type === 'select'){
+      fd.innerHTML = `<label>${f.label}</label><select id="d_${f.key}"><option value="">- select -</option>${f.opts.map(o=>`<option value="${o}">${o}</option>`).join('')}</select>`;
+    } else {
+      fd.innerHTML = `<label>${f.label}</label><input type="${f.type}" id="d_${f.key}">`;
+    }
+    demoCard.appendChild(fd);
+  });
+  shell.appendChild(demoCard);
+
+  // Export
+  const exportCard = document.createElement('div');
+  exportCard.className = 'card';
+  exportCard.innerHTML = `<div class="sub" style="margin-bottom:14px;">Review and download when complete.</div>`;
+  const pre = document.createElement('div');
+  pre.className = 'export-box';
+  pre.id = 'previewBox';
+  exportCard.appendChild(pre);
+
+  const btnRow = document.createElement('div');
+  btnRow.className = 'btn-row';
+  const dlJsonBtn = document.createElement('button');
+  dlJsonBtn.textContent = 'Download JSON';
+  dlJsonBtn.onclick = downloadJson;
+  const dlCsvBtn = document.createElement('button');
+  dlCsvBtn.className = 'ghost';
+  dlCsvBtn.textContent = 'Download CSV row';
+  dlCsvBtn.onclick = downloadCsv;
+  btnRow.appendChild(dlCsvBtn);
+  btnRow.appendChild(dlJsonBtn);
+  exportCard.appendChild(btnRow);
+  shell.appendChild(exportCard);
+
+  const footnote = document.createElement('footer');
+  footnote.className = 'note';
+  footnote.textContent = 'Demographics & Screening - V2P Adaptive Warning Study';
+  shell.appendChild(footnote);
+
+  attachHandlers();
+  updatePreview();
+}
+
+function attachHandlers(){
+  document.getElementById('m_pid').oninput = e => { meta.pid = e.target.value; updatePreview(); };
+  document.getElementById('m_date').oninput = e => { meta.date = e.target.value; updatePreview(); };
+
+  SCREENING_ITEMS.forEach(it => {
+    const el = document.getElementById('s_'+it.key);
+    el.checked = screening[it.key];
+    el.onchange = e => { screening[it.key] = e.target.checked; updatePreview(); };
+  });
+
+  FIELDS.forEach(f => {
+    const el = document.getElementById('d_'+f.key);
+    el.oninput = e => { demo[f.key] = e.target.value; updatePreview(); };
+    el.onchange = e => { demo[f.key] = e.target.value; updatePreview(); };
+  });
+}
+
+function buildExportObject(){
+  return {
+    instrument: 'Demographics & Screening',
+    participant_id: meta.pid,
+    session_date: meta.date,
+    screening: { ...screening },
+    demographics: { ...demo },
+    exported_at: new Date().toISOString(),
+  };
+}
+
+function updatePreview(){
+  document.getElementById('previewBox').textContent = JSON.stringify(buildExportObject(), null, 2);
+}
+
+function downloadJson(){
+  if(!meta.pid.trim()){ alert('Please enter a Participant ID before downloading.'); return; }
+  const obj = buildExportObject();
+  const blob = new Blob([JSON.stringify(obj, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${meta.pid}_Demographics_${meta.date}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function downloadCsv(){
+  if(!meta.pid.trim()){ alert('Please enter a Participant ID before downloading.'); return; }
+  const obj = buildExportObject();
+  const headers = ['participant_id','session_date',
+    ...SCREENING_ITEMS.map(it=>'screen_'+it.key),
+    ...FIELDS.map(f=>'demo_'+f.key)];
+  const row = [obj.participant_id, obj.session_date,
+    ...SCREENING_ITEMS.map(it=>obj.screening[it.key]),
+    ...FIELDS.map(f=>(obj.demographics[f.key]||'').toString().replace(/,/g,';'))];
+  const csv = headers.join(',') + '\n' + row.join(',');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${meta.pid}_Demographics_${meta.date}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+render();
+</script>
+</body>
+</html>
