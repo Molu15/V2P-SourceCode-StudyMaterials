@@ -1,0 +1,52 @@
+Run at: 2026-08-04T23:47:16.242352
+data_dir: C:\Users\vanes\THI\MA\Mainstudy docs\questionnaires\Answers
+
+[WARN] Unrecognized file, skipped: P01_Demographics_2026-07-21.json
+[WARN] Unrecognized file, skipped: P02_Demographics_2026-07-21.json
+[WARN] Unrecognized file, skipped: P03_Demographics_2026-07-21.json
+[WARN] Unrecognized file, skipped: P04_Demographics_2026-07-22.json
+[WARN] Unrecognized file, skipped: P05_Demographics_2026-07-22.json
+[WARN] Unrecognized file, skipped: P06_Demographics_2026-07-23.json
+[WARN] Unrecognized file, skipped: P07_Demographics_2026-07-23.json
+[WARN] Unrecognized file, skipped: P08_Demographics_2026-07-23.json
+[WARN] Unrecognized file, skipped: P09_Demographics_2026-07-23.json
+[WARN] Unrecognized file, skipped: P10_Demographics_2026-07-24.json
+[WARN] Unrecognized file, skipped: P11_Demographics_2026-07-24.json
+[WARN] Unrecognized file, skipped: P12_Demographics_2026-07-24.json
+[WARN] Unrecognized file, skipped: P13_Demographics_2026-07-24.json
+[WARN] Unrecognized file, skipped: P14_Demographics_2026-07-24.json
+[WARN] Unrecognized file, skipped: P15_Demographics_2026-07-27.json
+[WARN] Unrecognized file, skipped: P16_Demographics_2026-07-27.json
+[WARN] Unrecognized file, skipped: P17_Demographics_2026-07-27.json
+[WARN] Unrecognized file, skipped: P18_Demographics_2026-07-28.json
+[WARN] Unrecognized file, skipped: P19_Demographics_2026-07-28.json
+[WARN] Unrecognized file, skipped: P20_Demographics_2026-07-29.json
+[WARN] Unrecognized file, skipped: P21_Demographics_2026-07-29.json
+[WARN] Unrecognized file, skipped: P22_Demographics_2026-07-30.json
+[WARN] Unrecognized file, skipped: P23_Demographics_2026-07-30.json
+[WARN] Unrecognized file, skipped: P24_Demographics_2026-07-30.json
+[WARN] Unrecognized file, skipped: P25_Demographics_2026-07-30.json
+[WARN] Unrecognized file, skipped: P26_Demographics_2026-07-31.json
+[WARN] Unrecognized file, skipped: P27_Demographics_2026-07-31.json
+[WARN] Unrecognized file, skipped: P28_Demographics_2026-07-31.json
+[WARN] Unrecognized file, skipped: P29_Demographics_2026-07-31.json
+[WARN] Unrecognized file, skipped: P30_Demographics_2026-07-31.json
+[LOAD] 60 TiA files, 60 VdL files (60 TLX files skipped by design — see docstring)
+
+=================================================================
+CRONBACH'S ALPHA — pooled across Adaptive + Baseline
+=================================================================
+
+── TiA subscales ──────────────────────────
+  REL     k=6  n=50  alpha=0.799  [10 occasions dropped: incomplete]
+  UND     k=4  n=59  alpha=0.797  [1 occasions dropped: incomplete]
+  FAM     k=2  n=56  alpha=0.859  (k=2 -> Spearman-Brown = 0.864, more stable than raw alpha at k=2)  [4 occasions dropped: incomplete]
+  DEV     k=2  n=51  alpha=0.627  (k=2 -> Spearman-Brown = 0.628, more stable than raw alpha at k=2)  [9 occasions dropped: incomplete]
+  PROP    k=3  n=58  alpha=0.356  [2 occasions dropped: incomplete]
+  TRU     k=2  n=58  alpha=0.856  (k=2 -> Spearman-Brown = 0.856, more stable than raw alpha at k=2)  [2 occasions dropped: incomplete]
+
+── Van der Laan subscales ─────────────────
+  usefulness    k=5  n=60  alpha=0.884  [0 occasions dropped: incomplete]
+  satisfying    k=4  n=60  alpha=0.871  [0 occasions dropped: incomplete]
+
+[NOTE] n here = respondent-occasions (person x condition), e.g. 30 participants x 2 conditions = up to 60, minus any incomplete cases.

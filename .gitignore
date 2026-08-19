@@ -1,0 +1,7 @@
+﻿# Flutter/Dart build artifacts
+smombie_bridge/.dart_tool/
+smombie_bridge/.flutter-plugins-dependencies
+smombie_bridge/build/
+smombie_bridge/android/.gradle/
+smombie_bridge/android/local.properties
+smombie_bridge/android/.kotlin/

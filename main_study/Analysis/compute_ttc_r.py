@@ -180,6 +180,17 @@ def main():
             right_on=["pid", "mode", "run_id"], how="left"
         ).drop(columns=["pid", "mode", "run_id", "pid_num", "mode_norm"])
 
+    if os.path.exists("participant_profile.csv"):
+        profile = pd.read_csv("participant_profile.csv")
+        profile["pid_num"] = profile["PID"].astype(int)
+        out_df["pid_num"] = out_df["participant_id"].str.lstrip("Pp").astype(int)
+        out_df = out_df.merge(
+            profile[["pid_num", "Walker_speed", "Walking_style"]],
+            on="pid_num", how="left"
+        ).drop(columns=["pid_num"])
+    else:
+        print("[WARN] participant_profile.csv not found — Walker_speed/Walking_style skipped")
+
     out_df.to_csv(args.out, index=False)
 
     print(f"[SUMMARY] {n_ok} trials with a resolved ttc_at_actual_response, "

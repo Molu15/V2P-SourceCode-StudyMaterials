@@ -65,8 +65,15 @@ def parse_header(line: str) -> dict:
             result[k.lower()] = v
     return result
 
+def load_participant_profile(path="participant_profile.csv"):
+    if not os.path.exists(path):
+        print(f"[WARN] {path} not found — Walker_speed/Walking_style columns will be empty")
+        return {}
+    df = pd.read_csv(path)
+    return {int(row["PID"]): (row["Walker_speed"], row["Walking_style"])
+            for _, row in df.iterrows()}
 
-def load_all_logs(logs_dir: str = "./logs") -> pd.DataFrame:
+def load_all_logs(logs_dir: str = "./logs", profile: dict = None) -> pd.DataFrame:
     """
     Recursively scan logs_dir for CSV files, parse each header, and
     build a trial-level DataFrame (one row per scenario run).
@@ -78,7 +85,7 @@ def load_all_logs(logs_dir: str = "./logs") -> pd.DataFrame:
         print(f"[ERROR] Log directory not found: {logs_dir}")
         sys.exit(1)
 
-    csv_files = sorted(log_path.rglob("*.csv"))
+    csv_files = sorted(f for f in log_path.rglob("*.csv") if f.name != "run_order.csv")
     if not csv_files:
         print(f"[ERROR] No CSV files found in {logs_dir}")
         sys.exit(1)
@@ -103,6 +110,8 @@ def load_all_logs(logs_dir: str = "./logs") -> pd.DataFrame:
                 return None
 
         run_id = h.get("run", "")
+        pid_int = int(h.get("pid", 0) or 0)
+        walker_speed, walking_style = (profile or {}).get(pid_int, (None, None))
         record = {
             "file":              str(fpath),
             "pid":               h.get("pid"),
@@ -117,6 +126,8 @@ def load_all_logs(logs_dir: str = "./logs") -> pd.DataFrame:
             "early_warn_t":      to_float(h.get("earlywarnt")),
             "full_warn_t":       to_float(h.get("fullwarnt")),
             "timing_error":      to_float(h.get("timingerror")),
+            "walker_speed":      walker_speed,
+            "walking_style":     walking_style,
         }
 
         # Derived fields
@@ -154,6 +165,14 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
     Excluded: outcome == 'quit', trial_type == 'unknown'.
     """
     n_before = len(df)
+    excluded_quit = df[df["outcome"] == "quit"]
+    excluded_unknown = df[df["trial_type"] == "unknown"]
+    if not excluded_quit.empty:
+        print(f"[CLEAN] Excluded (outcome=quit): "
+              f"{excluded_quit[['pid','mode','run_id']].to_dict('records')}")
+    if not excluded_unknown.empty:
+        print(f"[CLEAN] Excluded (trial_type=unknown): "
+              f"{excluded_unknown[['pid','mode','run_id']].to_dict('records')}")
     df = df[df["outcome"] != "quit"].copy()
     df = df[df["trial_type"] != "unknown"].copy()
 
@@ -384,7 +403,7 @@ def run_statistics(df: pd.DataFrame) -> str:
             fsr = a_catch.groupby("pid")["stopped_at_alarm"].mean()
             lines.append(f"  Mean false-stop rate (adaptive): "
                          f"{fsr.mean():.1%} +/- {fsr.std():.1%}")
-            lines.append(f"  (= proportion of catch trials where participant "
+            lines.append(f"  (= proportion of catch trials where researcher "
                          f"pressed C after f-alarm)")
 
     # ── Manipulation Check: TimingError ────────────────────
@@ -562,7 +581,8 @@ def main():
     (out_dir / "plots").mkdir(exist_ok=True)
 
     # Load and clean
-    df = load_all_logs(logs_dir)
+    profile = load_participant_profile()
+    df = load_all_logs(logs_dir, profile)
     df = clean(df)
 
     # ── Merge annotations ─────────────────────────────────
@@ -615,11 +635,12 @@ def main():
         "pid", "mode", "run_id", "trial_type",
         "outcome", "effective_outcome",
         "ttc_at_response", "elapsed_ab", "t_c", "t_b_to_c",
-        "early_warn_t", "full_warn_t",
+        "early_warn_t", "full_warn_t", "timing_error",
         "responded", "collision", "response_stop", "not_in_time", "avoided", "safe_stop",
         "stopped_at_alarm", "stopped_at_alarm_raw",
         "looked_at_screen", "looked_at_traffic",
         "gaze_general_raw", "gaze_alarm_raw", "note",
+        "walker_speed", "walking_style",
     ]
     df[trial_cols].to_csv(out_dir / "trials.csv", index=False)
     print(f"[SAVE] {out_dir / 'trials.csv'}")

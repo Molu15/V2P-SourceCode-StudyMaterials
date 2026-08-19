@@ -69,6 +69,31 @@ def load_json_files(input_dir: Path):
 def key_for(pid, condition):
     return (pid, condition)
 
+def print_tlx_weight_summary(df_cond: pd.DataFrame):
+    weight_cols = [c for c in df_cond.columns if c.startswith("tlx_weight_")
+                   and c != "tlx_weight_sum_check"]
+    if not weight_cols:
+        return
+    print(f"\n{'='*55}")
+    print(f"  NASA-TLX — MEAN PAIRWISE WEIGHT PER SUBSCALE")
+    print(f"  (0-5, how often each dimension 'won' a pairwise comparison;")
+    print(f"   pooled across all participants and BOTH conditions)")
+    print(f"{'='*55}")
+    means = df_cond[weight_cols].mean().sort_values(ascending=False)
+    for col, m in means.items():
+        label = col.replace("tlx_weight_", "").title()
+        print(f"     {label:<20} M={m:.2f}")
+
+    print(f"\n  -- by condition --")
+    if "condition" in df_cond.columns:
+        by_cond = df_cond.groupby("condition")[weight_cols].mean()
+        for cond in by_cond.index:
+            print(f"\n     {cond}:")
+            row = by_cond.loc[cond].sort_values(ascending=False)
+            for col, m in row.items():
+                label = col.replace("tlx_weight_", "").title()
+                print(f"       {label:<18} M={m:.2f}")
+
 
 def main():
     parser = argparse.ArgumentParser(description="Aggregate V2P Main Study questionnaire JSON exports.")
@@ -99,7 +124,9 @@ def main():
             file_count["TLX"] += 1
             condition = data.get("condition")
             k = key_for(pid, condition)
-            condition_rows[k].update({
+            weights = data.get("weights", {})
+            ratings = data.get("ratings", {})
+            row = {
                 "participant_id": pid,
                 "session_date": data.get("session_date"),
                 "condition": condition,
@@ -107,7 +134,11 @@ def main():
                 "tlx_raw_mean": data.get("tlx_raw_mean"),
                 "tlx_weighted_score": data.get("tlx_weighted_score"),
                 "tlx_weight_sum_check": data.get("weight_sum_check"),
-            })
+            }
+            for dim in ["mental", "physical", "temporal", "performance", "effort", "frustration"]:
+                row[f"tlx_weight_{dim}"] = weights.get(dim)
+                row[f"tlx_rating_{dim}"] = ratings.get(dim)
+            condition_rows[k].update(row)
 
         elif instrument.startswith("Van der Laan"):
             file_count["VdL"] += 1
@@ -250,6 +281,7 @@ def main():
                         val = grouped.loc[cond, col]
                         row_str += f"  {val:<18.2f}"
                     print(row_str)
+            print_tlx_weight_summary(df_cond)
     else:
         print("No TLX/VdL/TiA condition-level data found.", file=sys.stderr)
 

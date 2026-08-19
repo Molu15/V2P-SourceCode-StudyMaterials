@@ -1,0 +1,22 @@
+Run at: 2026-08-12T18:50:21.460219
+data_dir: C:\Users\vanes\THI\MA\Mainstudy docs\questionnaires\Answers
+
+[LOAD] 60 TiA files, 60 VdL files (60 TLX files skipped by design — see docstring), (30 Demographics files skipped by design — see docstring)
+
+=================================================================
+CRONBACH'S ALPHA — pooled across Adaptive + Baseline
+=================================================================
+
+── TiA subscales ──────────────────────────
+  REL     k=6  n=50  alpha=0.799  [10 occasions dropped: incomplete]
+  UND     k=4  n=59  alpha=0.797  [1 occasions dropped: incomplete]
+  FAM     k=2  n=56  alpha=0.859  (k=2 -> Spearman-Brown = 0.864, more stable than raw alpha at k=2)  [4 occasions dropped: incomplete]
+  DEV     k=2  n=51  alpha=0.627  (k=2 -> Spearman-Brown = 0.628, more stable than raw alpha at k=2)  [9 occasions dropped: incomplete]
+  PROP    k=3  n=58  alpha=0.356  [2 occasions dropped: incomplete]
+  TRU     k=2  n=58  alpha=0.856  (k=2 -> Spearman-Brown = 0.856, more stable than raw alpha at k=2)  [2 occasions dropped: incomplete]
+
+── Van der Laan subscales ─────────────────
+  usefulness    k=5  n=60  alpha=0.884  [0 occasions dropped: incomplete]
+  satisfying    k=4  n=60  alpha=0.871  [0 occasions dropped: incomplete]
+
+[NOTE] n here = respondent-occasions (person x condition), e.g. 30 participants x 2 conditions = up to 60, minus any incomplete cases.

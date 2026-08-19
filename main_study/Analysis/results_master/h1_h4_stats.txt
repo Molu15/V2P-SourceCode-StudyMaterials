@@ -1,0 +1,118 @@
+Significance level: alpha = .05, two-tailed, for all inferential tests below (paired t-test / Wilcoxon signed-rank / McNemar). Effect sizes reported as Cohen's d for paired samples (mean difference / SD of differences).
+
+=================================================================
+H1 — Reaction Time (RT) & Time-to-Collision-at-Response (TTC-R)
+=================================================================
+[EXCLUDED from H1 only] PID(s): [3, 4, 15] (incomplete video -> RT/TTC-R pair unavailable)
+[DATA QUALITY NOTE] P1: Older run_sim.py version: no repeat alarm was sent after C was pressed (changed later; false negatives preferred over false positives). Document as a protocol-version change in Limitations; first-alarm RT/TTC-R for P1 remain comparable, multi-alarm/catch-trial dynamics may not be.
+[DATA QUALITY NOTE] P3: Variable walking speed across most trials (breaks the fixed-marker TTC-R assumption) + a missing trial on video for the first block, which risks a sync-offset in the greedy alarm-to-trial matcher for the rest of that block. Excluded from TTC-R (see EXCLUDE_FROM_TTC) pending manual re-check of the sync.
+
+── H1a TTC-R (s) — true kinematic, >= 3 trials/cond. (N complete pairs = 26) ─
+  Adaptive : M=2.600  SD=0.999
+  Baseline : M=1.897  SD=0.379
+  [Shapiro-Wilk on differences: p=0.018 (non-normal -> nonparametric used)]
+  Wilcoxon signed-rank: W = 57.000, p = 0.0018 **
+  Cohen's d = 0.699   Delta (Adaptive-Baseline) = +0.703
+  [INFO] 26 of 27 people have >= 3 resolved ttc_at_actual_response trials/condition. Requires rt_results_with_true_ttc.csv (compute_ttc_r.py output).
+[EXCLUDED from baseline-approach descriptive only] PID(s): [3, 4, 15]
+
+  [DESCRIPTIVE ONLY, not H1a] ttc_baseline_approach (pre-alarm walking-speed extrapolation): Adaptive M=5.009  Baseline M=4.823  (N=27)
+
+── H1b RT — main (stop/run/run_back, >= 3 trials/cond.) (N complete pairs = 16) ─
+  Adaptive : M=0.830  SD=0.450
+  Baseline : M=0.736  SD=0.445
+  [Shapiro-Wilk on differences: p=0.038 (non-normal -> nonparametric used)]
+  Wilcoxon signed-rank: W = 68.000, p = 1.0000 n.s.
+  Cohen's d = 0.152   Delta (Adaptive-Baseline) = +0.095
+
+── H1b RT — sensitivity (ALL people, incl. <3 trials/cond.) (N complete pairs = 21) ─
+  Adaptive : M=0.895  SD=0.422
+  Baseline : M=0.737  SD=0.465
+  [Shapiro-Wilk on differences: p=0.058 (normal)]
+  Paired t-test: t(20) = 1.182, p = 0.2510 n.s.
+  Cohen's d = 0.258   Delta (Adaptive-Baseline) = +0.158
+  [WARNING] Includes people with only 1-2 trials -> noisier person means. Robustness check only, not in the multiple-comparison correction below.
+
+── H1b RT — extended outcomes (+ continue_walk/not_in_time, >= 3 trials/cond.) (N complete pairs = 20) ─
+  Adaptive : M=0.881  SD=0.513
+  Baseline : M=0.783  SD=0.524
+  [Shapiro-Wilk on differences: p=0.038 (non-normal -> nonparametric used)]
+  Wilcoxon signed-rank: W = 100.000, p = 0.8695 n.s.
+  Cohen's d = 0.167   Delta (Adaptive-Baseline) = +0.098
+  [NOTE] Point 5 (chat): reported separately from the main RT test, not merged — response_continue_walk/not_in_time reflect a different response quality than an evasive stop/run/run_back.
+
+── H1c Collision occurrence (>=1 collision per block) (McNemar, paired binary, N = 30) ──────────
+  Adaptive rate : 33.3%   Baseline rate : 43.3%
+  Discordant pairs: Adaptive-only=2, Baseline-only=5 (McNemar only uses these — concordant pairs [8+15] carry no information about the difference)
+  McNemar: statistic=2.000, p = 0.4531 n.s.
+  [Descriptive, trial-level] Adaptive: 18.0%   Baseline: 22.0%
+
+── False-stop rate (catch trials, Adaptive only, N=30) ──────────────
+  Adaptive : 33.3% +/- 42.2%
+  [NOTE] Baseline is intentionally NOT reported here: the fixed-baseline system never issues any alarm (f or vha) on catch trials, so a 'false stop' is structurally undefined for Baseline (0/0), not a meaningful 0% comparison point. Report Adaptive's 33.3% as a standalone descriptive statistic, not a paired contrast (not included in multiple-comparison correction below, since there is no comparison being made).
+
+=================================================================
+H2 — Cognitive Load (NASA-TLX)  /  H3 — Acceptance (Van der Laan)  /  H4 — Trust (TiA)
+=================================================================
+
+── H2  tlx_weighted_score (cognitive load, lower=better for Adaptive) (N complete pairs = 30) ─
+  Adaptive : M=39.857  SD=22.338
+  Baseline : M=40.712  SD=21.196
+  [Shapiro-Wilk on differences: p=0.980 (normal)]
+  Paired t-test: t(29) = -0.301, p = 0.7657 n.s.
+  Cohen's d = -0.055   Delta (Adaptive-Baseline) = -0.855
+
+── H3  vdl_usefulness (acceptance, higher=better for Adaptive) (N complete pairs = 30) ─
+  Adaptive : M=1.320  SD=0.764
+  Baseline : M=1.173  SD=0.805
+  [Shapiro-Wilk on differences: p=0.018 (non-normal -> nonparametric used)]
+  Wilcoxon signed-rank: W = 102.500, p = 0.1043 n.s.
+  Cohen's d = 0.192   Delta (Adaptive-Baseline) = +0.147
+
+── H3  vdl_satisfying (acceptance, higher=better for Adaptive) (N complete pairs = 30) ─
+  Adaptive : M=0.308  SD=1.012
+  Baseline : M=0.283  SD=1.019
+  [Shapiro-Wilk on differences: p=0.358 (normal)]
+  Paired t-test: t(29) = 0.159, p = 0.8745 n.s.
+  Cohen's d = 0.029   Delta (Adaptive-Baseline) = +0.025
+
+── H4  tia_trust_in_automation_core (trust, higher=better for Adaptive) (N complete pairs = 30) ─
+  Adaptive : M=3.283  SD=1.096
+  Baseline : M=3.333  SD=1.069
+  [Shapiro-Wilk on differences: p=0.349 (normal)]
+  Paired t-test: t(29) = -0.280, p = 0.7812 n.s.
+  Cohen's d = -0.051   Delta (Adaptive-Baseline) = -0.050
+
+=================================================================
+TiA — ALL SIX SUBSCALES (descriptive, for Ch. 6.1 completeness)
+=================================================================
+[Descriptive only — not part of confirmatory H1-H4 testing / multiple-comparison correction]
+  Subscale                                 Adaptive M     (SD)   Baseline M     (SD)   n
+  TiA Reliability/Competence                    3.411    0.653        3.280    0.758   30
+  TiA Understandability                         3.617    1.014        3.608    0.897   30
+  TiA Familiarity                               1.536    0.999        1.696    1.149   28
+  TiA Intention of Developers                   4.172    0.966        4.017    1.122   29
+  TiA Propensity to Trust                       2.851    0.738        2.884    0.682   30
+  TiA Trust in Automation (core)                3.283    1.096        3.333    1.069   30
+  [Note] Only 'Trust in Automation (core)' (last row) is the pre-specified H4 DV and appears again above with its inferential test. The other five are reported here for transparency only.
+
+=================================================================
+MULTIPLE-COMPARISON CORRECTION (Holm-Bonferroni, corrected WITHIN each pre-specified hypothesis family — see chat for rationale: family boundaries follow H1 vs H2-H4 wording, not post-hoc grouping)
+=================================================================
+
+  Family: A — Behavioral (H1: TTC-R, RT) (m=2)
+    Test                                                  raw p   holm p  sig
+    H1a TTC-R (s) — true kinematic, >= 3 trials/cond.    0.0018   0.0036  *
+    H1b RT — main (stop/run/run_back, >= 3 trials/cond.)   1.0000   1.0000  n.s.
+
+  Family: B — Self-report (H2-H4: TLX, VdL x2, TiA) (m=4)
+    Test                                                  raw p   holm p  sig
+    H2  tlx_weighted_score (cognitive load, lower=better for Adaptive)   0.7657   1.0000  n.s.
+    H3  vdl_usefulness (acceptance, higher=better for Adaptive)   0.1043   0.4173  n.s.
+    H3  vdl_satisfying (acceptance, higher=better for Adaptive)   0.8745   1.0000  n.s.
+    H4  tia_trust_in_automation_core (trust, higher=better for Adaptive)   0.7812   1.0000  n.s.
+
+  [NOTE] Collision occurrence (McNemar) and false-stop rate are reported with UNCORRECTED p-values as exploratory/secondary safety indicators — H1 as worded names only RT and TTC-R as confirmatory DVs.
+
+
+N demographics on file: 30

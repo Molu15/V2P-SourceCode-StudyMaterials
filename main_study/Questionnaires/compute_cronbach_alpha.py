@@ -103,6 +103,7 @@ def main():
 
     tia_records, vdl_records = [], []
     n_tlx_skipped = 0
+    n_demographics_skipped = 0
     for f in sorted(data_dir.glob("*.json")):
         name = f.name
         if "_TiA_" in name:
@@ -111,11 +112,14 @@ def main():
             vdl_records.append(load_vdl(f))
         elif "_TLX_" in name:
             n_tlx_skipped += 1
+        elif "_Demographics_" in name:
+            n_demographics_skipped += 1
         else:
             p(f"[WARN] Unrecognized file, skipped: {name}")
 
     p(f"[LOAD] {len(tia_records)} TiA files, {len(vdl_records)} VdL files "
-      f"({n_tlx_skipped} TLX files skipped by design — see docstring)\n")
+      f"({n_tlx_skipped} TLX files skipped by design — see docstring), "
+      f"({n_demographics_skipped} Demographics files skipped by design — see docstring)\n")
 
     p("=" * 65)
     p("CRONBACH'S ALPHA — pooled across Adaptive + Baseline")

@@ -1,0 +1,28 @@
+# V2P Warning System — Dependencies
+# ==========================================
+# Install all at once:
+#   pip install -r requirements.txt
+#
+# ⚠ CARLA Python API is NOT on PyPI.
+#   Install it from your CARLA release folder:
+#   Windows:  pip install <CARLA_ROOT>/PythonAPI/carla/dist/carla-*.whl
+#   Linux:    pip install <CARLA_ROOT>/PythonAPI/carla/dist/carla-*.egg
+#   Only needed for run_sim.py, sim_urgency.py and sim_TTC.
+
+
+
+# ── Video & Pose Detection (analyze_rt_video.py) ──────────────
+mediapipe>=0.10.0        # pose landmark detection (Tasks API, PoseLandmarker)
+opencv-python>=4.7.0    # video capture and frame processing
+librosa>=0.10.0         # audio loading and template matching (alarm sync)
+scipy>=1.9.0            # WAV fallback loading (scipy.io.wavfile)
+
+# ── Numerical & Analysis (all scripts) ────────────────────────
+numpy>=1.23.0           # array operations, NPZ cache files
+
+# ── Statistical Analysis (analyze_results.py) ─────────────────
+pandas>=1.5.0           # CSV loading and groupby statistics
+matplotlib>=3.6.0       # figures (boxplot, per-participant, validity heatmap)
+openpyxl>=3.1
+statsmodels>=0.13
+# scipy already listed above — also used for Wilcoxon signed-rank test

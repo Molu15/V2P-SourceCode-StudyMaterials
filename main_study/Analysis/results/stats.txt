@@ -1,0 +1,33 @@
+============================================================
+STATISTICAL ANALYSIS — V2P WARNING STRATEGY
+============================================================
+
+N (complete pairs) = 30
+
+                                  Adaptive    Baseline
+TTC_at_response mean (s)             5.036       4.800
+TTC_at_response SD (s)               1.078       0.847
+
+[SUPERSEDED] This is the pre-alarm walking-speed approximation (ttc_baseline_approach), NOT the confirmatory H1a test. The true kinematic TTC-R (from compute_ttc_r.py + run_h1_h4_analysis.py) is the result reported in the thesis for H1a — see chat/methodology doc.
+── ttc_baseline_approach (hit trials, descriptive only) ──
+  Paired t-test: t(29) = 2.278, p = 0.0303 *
+  Cohen's d = 0.416  (small)
+  Direction: Adaptive > Baseline (delta = +0.236s)
+
+── Collision rate (hit trials) ────────────────────
+  Adaptive : 18.0% +/- 32.5%
+  Baseline : 22.0% +/- 34.2%
+  Total collisions — Adaptive: 27, Baseline: 33
+
+── False-stop rate (catch trials, adaptive only) ──
+  Mean false-stop rate (adaptive): 33.3% +/- 42.2%
+  (= proportion of catch trials where researcher pressed C after f-alarm)
+
+── Manipulation Check: TimingError (nominal TTC targets vs. actual) ──
+  N = 539   Mean = 0.683s   SD = 0.763s
+  |TimingError| > 0.5s: 263 von 539 Trials (48.8%)
+  |TimingError| > 1.0s: 172 von 539 Trials (31.9%)
+
+============================================================
+Significance: * p<.05  ** p<.01  *** p<.001  n.s. = not significant
+============================================================
