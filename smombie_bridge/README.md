@@ -43,9 +43,17 @@ A pre-built APK for the exact version used in the main study is attached to the 
 
 ## Network configuration
 
-- Communication: UDP **unicast** (not broadcast) between the CARLA host laptop and the phone
-- Connection: phone's mobile hotspot (host laptop connects to the phone's hotspot)
-- **Port: 5008** (`DatagramSocket(5008)` in `UdpOverlayService.kt`)
+- **Communication:** UDP unicast (not broadcast) between the CARLA host laptop and the phone
+- **Connection:** phone's mobile hotspot (host laptop connects to the phone's hotspot)
+
+Two independent UDP listeners run on the phone, receiving the same alarm commands redundantly:
+
+| Port | Receiver | Purpose |
+|---|---|---|
+| 5007 | `lib/main.dart` (Flutter, `Endpoint.any`) | Alarm commands — in-app UI listener |
+| 5008 | `UdpOverlayService.kt` (native, `DatagramSocket(5008)`) | Alarm commands — overlay service; keeps receiving in the background/when the app isn't in the foreground |
+
+The redundancy exists because the Flutter listener only receives while the app is active in the foreground, whereas the native Kotlin service (kept alive via `SmombieBackgroundService.kt`) continues listening and can render the overlay even when the phone is locked or the app is backgrounded.
 
 ## Used by
 
