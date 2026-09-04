@@ -1,0 +1,333 @@
+PID,Block,Code(s),Coded excerpt (paraphrased)
+P1,A,"1, 2","Felt the two systems the same; second run ""felt more smooth"" but attributed this to a possible learning effect rather than a real difference."
+P1,B,"3, 4",First run had plenty of time; briefly confused why a warning fired at all.
+P1,B,4,"Stopped for the first second, then checked the car and decided whether to continue."
+P1,C,5,Could still text through the alerts; did not feel the warnings cost much mental effort.
+P1,C,"5, TagB","Confused by the red-bar overlay – unsure whether to tap/interact with it (""should I click it?"")."
+P1,D,6a,Once felt confused when a warning arrived after she had already passed.
+P1,D,"6b, 6c","Did not feel more annoyed over time; became calmer and less startled, not because she ignored it but because she was more prepared."
+P1,D,2,Would tolerate either system long-term; saw no real difference.
+P1,E,8,"Trusted the system from the start and even more by the end, despite the short exposure."
+P1,E,7,"Said she would rather rely on her own judgement, since she still checked the road herself at points."
+P1,F,11,Alerts and behaviour felt realistic to her.
+P1,G,TagB,The red side-bar confused her because it appeared with no further explanatory information.
+P1,Closing,TagA,"Suggested a single unified alert rather than separate signals, reasoning that juggling multiple distinct warning types while already occupied by the phone task would be too much."
+P2,A,1,"Only distinguished the systems after the second Adaptive run; found Baseline's timing and cueing ""really good."""
+P2,A,"6c, TagB","Red block read like a screen malfunction; annoyed that the reset arrow was blocked while active; timing felt disconnected from a real threat, which was irritating when the second alarm then came on top."
+P2,A,2,Preferred Baseline – timing and cues were clearer; Adaptive's cues felt irritating.
+P2,A,1,"Did not notice the directional arrow in the VHA alert at all during the session – only reacted positively (""awww"") once it was explained afterward."
+P2,Closing,TagA,"Suggested a conventional traffic-warning-sign icon instead of a plain red hue, since the red specifically evoked a phone malfunction to her."
+P3,D,4,"Reported saying ""ultra irritating"" at the first VHA alarm."
+P3,B,"3, 4",Most of the time had plenty of time to continue; only once felt she would have been hit if she'd kept going.
+P3,B,4,Tended to just keep going – treated the alert as a reminder to be more aware rather than a command to stop.
+P3,C,5,No perceived difference between systems; texting and crossing together felt demanding regardless of condition.
+P3,C,"5, 8",First 2–3 runs felt challenging; became easier to handle as trust in the system grew.
+P3,D,"8, 6b",Ignored the alerts at first; gained trust and became more attentive to surroundings the more she used it.
+P3,D,"2, 8","Could see herself using Baseline long-term, but only after building enough trust in it."
+P3,E,8,Started with zero trust; trust grew with use.
+P3,E,"2, 3","Trusted the second (Baseline) system slightly more, attributing it to the overlay feeling less interruptive than the red-bar stage."
+P3,E,10,A hypothetical missed warning would not much affect trust – she accepts that systems can err and does not rely on it 100%.
+P3,F,11,"Setup felt natural once adjusted to it; noted she rarely texts in real traffic, so behaviour would differ in reality."
+P3,D,"6c, TagA","Sound described as ""very aggressive""; suggested it could be softer while keeping the same effect."
+P4,A,"1, 3","Adaptive's early indicator was useful, but the second system's message sometimes arrived before the car was visible, which read as confusing rather than helpful."
+P4,A,"2, TagA","Would prefer Adaptive, but only with prior instruction on how it works; values the earlier warning."
+P4,B,3,Baseline sometimes arrived so late the car was already there; Adaptive sometimes left him unsure where the car actually was.
+P4,B,4,"Reported an urge to stop immediately on the full-screen VHA overlay, to the point the phone task became unusable underneath it."
+P4,C,5,Visual warning replaced rather than added to the chatting load; felt little difference in mental effort between conditions.
+P4,D,"3, 6a","With Adaptive's ""f"" stage he sometimes did not see a car at all and wondered if it was a malfunction; still felt over-warning is preferable to under-warning."
+P4,D,6c,Liked the acoustic component specifically because his phone is normally muted and it reliably grabbed his attention.
+P4,D,2,"Would prefer Adaptive long-term, provided the early-warning threshold is tuned to reduce premature alerts."
+P4,E,7,"Trust depends on finding a ""sweet spot"": Baseline sometimes felt too late to trust, Adaptive sometimes too early to trust."
+P4,G,TagA,Suggested spatial (left/right) indications and cautioned against an overly dramatic warning-screen design.
+P4,G,TagA,Proposed a game-style proximity indicator (translucent circles that intensify as the hazard nears).
+P4,D,6a,"On her first Catch-like Adaptive trial, felt she 'didn't get a real notification' because no sound accompanied it – expected the full multimodal signal even for the early stage."
+P4,Closing,TagA,"Suggested that text input should be fully disabled during the ""f"" stage rather than remaining partially usable."
+P5,A,1,Was somewhat confused about exactly when the red side-bar vs. the multimodal alert was active.
+P5,A,"2, 8",Preferred the first (Adaptive) system as more reliable; felt Baseline warned too little and made her feel less safe.
+P5,B,3,Warning sometimes felt too early – no car was visible yet.
+P5,B,4,"Stopped without thinking and looked up immediately on hearing the loud multimodal alert; interpreted the red area as ""be careful, but still fine"" vs. VHA as ""very urgent."""
+P5,C,"5, 8","Found it complicated to focus on writing at first, but leaned further into texting once she'd learned to trust the system."
+P5,C,5,App itself did not add mental load – it stayed out of the way until needed and could not be missed when danger was present.
+P5,C,"5, 11","Would not normally multitask while crossing in real life, especially in a deeper conversation; reacting to warnings while also texting took noticeably longer."
+P5,D,6a,An early/premature warning felt somewhat bothersome.
+P5,D,"6a, 6c",Acknowledged the alert has to be somewhat annoying to be effective – a soft notification would not have been enough.
+P5,C,5,"As the conversation grew deeper over the session, switching between texting and the warnings became noticeably harder."
+P6,A,"1, 2","Preferred Baseline – felt it alerted properly while crossing, whereas Adaptive sometimes only showed the alert after he had already crossed."
+P6,B,3,"Baseline felt very hurried, alerting at the last moment; Adaptive showed the right cue but sometimes a bit late."
+P6,B,4,"Reported needing to actively change behaviour (rushing forward or back) depending on vehicle distance, not just freeze."
+P6,C,5,Felt he had to be more mentally alert generally when crossing (shouldn't be texting at all); reported needing to track both front and back of the vehicle differently between conditions.
+P6,C,5,"Felt confused about what to actually focus on, juggling phone and warnings."
+P6,D,6a,An alert that fired only after he had already crossed felt pointless; reasoned such a late alert could still make sense for warning a following pedestrian.
+P6,D,2,Would choose Baseline for daily/long-term use to help prevent accidents.
+P6,E,7,Rated trust 8–9/10 in one scenario – trustworthy but not fully reliable.
+P6,E,9,Felt alert urgency scaled sensibly with vehicle distance.
+P6,E,10,A missed real-danger warning would make him stop trusting the system and rely on his own road awareness instead; gave a 50/50 rating reflecting cautious partial reliance.
+P6,G,TagA,Was briefly confused by right/left-hand traffic conventions differing from his home country.
+P6,D,6a,Felt some timing errors (alerts arriving too late) reduced perceived usefulness.
+P6,Closing,"11, TagA",Noted that complex junctions (not simply left/right) would be difficult for a warning system to handle predictably.
+P7,B,"3, 4",Reacted instantly to alarms; first exposure produced a shock/startle response and an intuition to freeze rather than move.
+P7,B,4,"Initially reacted immediately, but over the session shifted toward looking ahead and assessing before reacting."
+P7,C,5,Texting and crossing together was already demanding; found the intuitive cue helpful mainly because he was already looking at the phone.
+P7,C,5,No felt difference in workload between conditions.
+P7,D,6b,"Paid less attention to warnings over time but described this as growing confidence, not annoyance."
+P7,D,2,"Doubts he would use such a system personally, seeing it as most useful for children who lack traffic understanding, or only in edge cases."
+P7,E,8,"One missed warning in a risky moment made him question the system, though it was otherwise reliable."
+P7,E,–,Explicitly named overtrusting the automation as a real risk if a user stops watching the street themselves.
+P7,F,11,Vehicle behaviour did not feel natural to him.
+P7,G,TagA,Suggested a wearable would suit this use case better than a handheld phone.
+P7,F,3,"Explained that the simulation's collision zone was defined roughly 1m before the actual point of impact, which he felt could make perceived timing/urgency vary between participants."
+P7,Closing,TagA,Described the current interaction design as a low-fidelity prototype with clear room for refinement.
+P8,A,"2, TagB",Preferred the first (Baseline) system for its clarity (message + sound); the red bar in the second system read as an unexplained screen error rather than a warning.
+P8,B,4,Looked up and actively assessed the situation on receiving a warning.
+P8,C,"5, TagB","The unexplained red bar demanded a moment of mental effort to interpret (""why only on the right side?""); VHA needed none."
+P8,D,6a,"Felt the warning was helpful even without present danger, since it redirected attention that should have been on traffic rather than the phone anyway."
+P8,D,TagB,"An unexplained red bar without a message left him still looking at the phone, confused, rather than looking around."
+P8,E,9,"Felt VHA ""understood"" the situation better than the red-bar-only stage."
+P8,E,–,"Placed responsibility for interpreting ambiguous signals (like the plain red bar) on himself, not the system; did not blame the system for a hypothetical miss."
+P8,F,11,Setup felt natural to him; tried to behave as he would in reality.
+P8,G,TagA,Suggested adding vibration/combining popup with vibration; was confused about the lack of a distinct haptic cue (which was in fact present but synced to the sound).
+P8,Closing,–,Mentioned his phone already has a feature that pops up a warning when he walks while looking at it – an existing personal reference point for the concept.
+P9,A,1,Could distinguish the two clearly: Baseline fired later/closer to a near-collision; Adaptive fired earlier and had two distinct stages (visual then auditory) vs. Baseline's auditory-only.
+P9,A,"2, 6b",Preferred Adaptive as less likely to be ignored over time; worried Baseline alerts would eventually be tuned out and he'd rely on himself instead.
+P9,B,3,Baseline often left little time (but enough to stop and decide); Adaptive left more than enough time.
+P9,B,4,"Tended to stop under Baseline; under Adaptive, kept going since there was consistently enough time."
+P9,C,"5, 8","Medium-high effort overall, tended to pause texting when a warning came; under Adaptive stayed more alert (higher trust), under Baseline focused more on texting since it felt ""too late anyway."""
+P9,D,6a,"More Catch-like instances under Adaptive, though he could usually see why a warning had fired; occasionally a warning felt unneeded once he was already most of the way across."
+P9,D,6b,Purely visual warnings (without sound) were eventually ignored.
+P10,A,"1, TagA","Found Baseline's text-only alert abrupt; Adaptive's directional affordance made it easier to know which way to look, reducing mental demand."
+P10,A,2,Definitively preferred Adaptive.
+P10,B,6a,"Framed early warning as appropriately ""better safe than sorry."""
+P10,B,4,Came to a sudden halt on receiving a warning.
+P10,C,5,"High effort wanting to attend to both phone and road simultaneously, compounded by not being sure the system would function correctly every time."
+P10,C,"8, TagA","After the first Adaptive trial felt more secure, believing his reaction would be faster once he understood the directional cue."
+P10,D,6a,No warning felt unnecessary – every alert corresponded to an actual approaching car.
+P10,D,6c,"Did not find the alert pleasant, but reasoned it doesn't need to be pleasant to do its job; felt impossible to casually ignore."
+P10,D,2,Would tolerate Adaptive long-term.
+P10,E,7,"Trusted himself more than either system; trusted Baseline too little to react adequately, trusted Adaptive more to react correctly."
+P10,E,10,A hypothetical missed warning would stop him from using the system again.
+P10,F,11,Would never text while actually crossing a street in real life.
+P10,G,TagA,Felt the interface shouldn't aim to be pleasant – described a deliberately utilitarian design as appropriate for a safety-critical task.
+P10,Closing,TagA,Raised an open question about how the system should handle successive/overlapping vehicle warnings in a row.
+P11,C,5,Only noticed the large popup and could not read the chat text at all in that moment; switching between tasks made it hard to return to the text.
+P11,C,"5, 11","Reported normally texting on the sidewalk, then turning the phone away while actually crossing – a habitual pattern the dual-task paradigm overrides."
+P11,D,"6a, TagB","A directional ""look right"" warning surprised him since he already knew the situation; felt ""Warning"" alone would suffice – ""look up"" initially read as looking at the sky rather than the road, and phrasing like ""watch out"" felt more natural coming from a person than a device."
+P11,D,"6a, 6c","Alerts felt justified – ""rather go off late than not go off at all."""
+P11,D,"2, TagA","Would prefer the system stay silent unless he is actually using his phone; suggested a milder, less startling warning could still work if tested."
+P11,E,7,"Trust was moderate – system felt like a prototype, occasionally reacting a bit late or early; would be trustworthy if refined."
+P11,E,6a,Stated a preference for false positives over false negatives.
+P11,F,11,"Simulated vehicles turning sharply (90°) felt unrealistic compared to real traffic, where vehicles slow, blink, and curve gradually."
+P11,G,TagB,"Explicitly noted ""look up"" was technically correct wording but he still looked toward the sky the first time rather than at traffic."
+P11,D,2,Explicitly said he does not need to know which direction danger is coming from – only that danger is present – a notable exception to the more common desire for directional cues.
+P11,Closing,TagA,"Suggested the warning could fire slightly sooner, while acknowledging this is hard to predict for a car that suddenly turns."
+P11,Closing,TagA,"Proposed a pinging tone that changes frequency as the hazard approaches, similar to an aircraft proximity warning."
+P11,B,4,Described the first Adaptive alarm as startling.
+P11,Closing,TagB,"On first exposure to the early ""f"" stage, assumed his phone was broken rather than recognizing it as a directional warning."
+P11,Closing,TagA,Suggested a pulsating gradient as an alternative visual treatment.
+P12,A,"1, TagA",Distinguished the systems mainly by the red bar's spatial cue (which side to look); Baseline's screen was too brief to read.
+P12,A,"2, TagA","Preferred the system with the red bar for its spatial information, though noted usefulness depends on road layout."
+P12,B,3,Baseline felt too late – arrived when he was already halfway across; Adaptive's red cue was better timed.
+P12,C,5,Baseline had higher mental demand (text + sound competing for attention); Adaptive's red bar let him know at a glance which way to look.
+P12,D,"6a, 6b","Adaptive's early cue initially felt unnecessary and, lacking sound, felt less urgent over time; Baseline's sound read as excessive, comparable to an emergency/outbreak alarm."
+P12,D,2,Would tolerate the Adaptive system long-term.
+P12,E,"9, TagA","Felt Adaptive ""understood"" the situation better because of its spatial (directional) overlay, e.g. distinguishing a pedestrian group from a vehicle."
+P12,G,TagA,"A racing-game ""edge lighting"" comparison helped him understand the red-bar concept once he had already experienced Baseline."
+P12,Closing,"2, 11","Mentioned he sometimes uses navigation apps while crossing, so a system like this would be personally useful to him."
+P12,Closing,"5, 6c, TagA",Reported the flashing/blinking of the alert made the underlying chat text unreadable and suggested reducing it; also felt the current sound was too cautious-sounding and mentally demanding.
+P13,A,"2, TagA","Preferred the system with the extra red-bar warning, valuing it as a fail-safe in case the main alarm ever malfunctioned."
+P13,B,"3, 7","Warnings that came very early bred mistrust – ""no way the system knows the car would turn toward her""; preferred late over early."
+P13,B,4,Definitively stopped to figure out where danger was coming from before proceeding.
+P13,C,"5, TagA",The red-bar hint reduced worry rather than adding effort; the alert itself did not increase mental load.
+P13,D,"3, 6a","Disliked warnings that came too early, since they introduced more decisions to weigh rather than a clear stop."
+P13,D,"6b, 6c","Noise was ""so annoying"" she said she'd never ignore it, though became less shocked over repeated exposure; frequency of repeated alarms mattered."
+P13,D,"2, TagA",Preferred the first (Adaptive) system long-term specifically because the red-bar fail-safe would reduce anxiety even if the main alarm failed.
+P13,E,7,"Trusted the system, but noted that trust ""lasts about as long as a mistake""; would not trust it 100%."
+P13,E,"7, 11",Noted she knew no real danger existed and therefore trusted the system unconditionally in the lab – a trust level she said would not transfer to blind trust in real life.
+P13,Closing,TagA,"Suggested a more modern, dynamic visual treatment (e.g. a glowing halo instead of a static bar)."
+P13,Closing,1,"Recalled the warning as yellow with an arrow and ""look right"" text and reconsidered her design preference once she pictured it that way – confirms she did perceive the directional/arrow element, at least in Baseline."
+P14,B,3,Reported timing and speed felt fine for both typing and crossing.
+P14,G,TagA,"Suggested a brief explanatory pop-up after first exposure, since she was initially confused about why a warning had occurred, especially early in the session."
+P14,F,11,"Said she would look toward the relevant side before stepping out in real life, since she was aware the projector setup only ever showed traffic from one direction – an artifact of the lab setup."
+P14,F,11,Said she would walk faster crossing a street that large in reality.
+P15,A,"1, 2, 3",Adaptive felt very early – firing before the car was visible; Baseline felt delayed; unsure whether this reflected different systems or just different timings.
+P15,A,"2, 6a","Preferred Adaptive – ""better to have false positives before false negatives""; felt it alerted more consistently."
+P15,B,11,"Both conditions felt unrealistic to her, since she would normally use a marked crossing rather than cross mid-street."
+P15,C,5,"Reported the dual task took no noticeable mental effort, partly credited to Gemini's minimal chat UI."
+P15,D,6a,None of the warnings felt unnecessary – always saw some value in being warned.
+P15,D,6c,Sound frequency/duration and how long the screen was obstructed were mildly annoying on their own.
+P15,D,"2, 11","Doubted she would find real utility for either system, given she tends to use marked crossings, traffic lights, and barriers."
+P15,E,7,"Trust did not change much – she assessed situations herself either way, attributing this partly to living in a less-regulated traffic environment (New York)."
+P15,E,10,A hypothetical missed warning leading to injury would severely damage trust.
+P15,F,11,Cited missing pedestrian signals/crosswalks and the German-crossing norm as reasons the scenario felt less realistic; suggested a multi-lane variant might better capture real hesitation/decision-making.
+P15,Closing,TagA,"Raised colour-blindness/accessibility as a consideration, though felt current screen contrast was likely sufficient."
+P15,Closing,"2, TagA",Would prefer having all warning cues present simultaneously rather than just one at a time.
+P15,Closing,TagA,"Suggested the system's real value might be for situations where a user's senses are otherwise impaired (e.g. hearing), to support environmental awareness."
+P16,A,1,Only difference noticed was the red strip on the (believed) right side.
+P16,A,2,Preferred the second (Adaptive) system for providing orientation information ahead of the main alert.
+P16,B,"3, 4","Notification arrived with plenty of lead time; first exposure was mistaken for something urgent like an earthquake alert, later understood and reacted calmly."
+P16,D,TagB,"Red strip read as a phone malfunction rather than a spatial alarm, given the prototype look; suggested it be more subtly integrated."
+P16,D,"6b, 6c","Because there was enough lead time, felt the VHA alert specifically could be calmer/more neutral rather than urgent-sounding."
+P16,D,2,"Would prefer the Adaptive system long-term, provided the notification tone were calmer."
+P16,E,8,Felt real trust would require an extended field-test period (about a month) rather than a single lab session.
+P16,G,TagA,Suggested wearable support so the system isn't tied to actively holding the phone.
+P16,Closing,TagA,Proposed offloading the alert to a wearable/smartwatch specifically because a watch is more consistently on-body than a phone in hand.
+P16,Closing,TagA,Raised a privacy consideration around audible alerts – not wanting bystanders to hear the sound unless it's a genuine emergency.
+P16,A,1,"Recognized the red-bar convention immediately from gaming experience – a notable exception to the more common ""looks broken"" misreading (G1/TagB pattern) seen in most other participants."
+P17,A,2,Valued Adaptive because it warned in advance rather than only in the moment when it was already too late.
+P17,A,"1, 6c","Distinguished the systems by phase: Adaptive's ""soft launch"" red side-bar felt calm at first, but a subsequent sound after she was already alert felt distracting and unnecessary; Baseline felt loud and arrived only once she'd nearly finished crossing."
+P17,A,"2, 3","Preferred Adaptive, citing better timing overall."
+P17,B,3,Adaptive gave plenty of time; Baseline felt too late.
+P17,B,4,"Under Adaptive consistently stopped, and when the alarm sounded even after she was already alert, briefly wondered if she'd done something wrong / misunderstood the task rules."
+P17,B,4,"Under Baseline, kept walking and was nearly across before reacting – closer to finishing than reversing."
+P17,C,"5, 8","Adaptive took little mental effort since she let the system dictate when to check the road, so she could focus mainly on texting."
+P17,D,"6a, 6c",A redundant sound after she was already visually alerted (soft warning) felt unnecessary and annoying.
+P17,D,6b,"Did not pay less attention over time – she expected the alerts as part of the study; the sound itself was the annoying element, not habituation."
+P17,D,2,Would tolerate Adaptive long-term.
+P17,E,8,"Trusted Adaptive considerably more than Baseline, especially after seeing a car during Baseline that produced no alert at all."
+P17,E,3,"Sometimes Adaptive's cue came very early, when the car was still too far away to technically require action."
+P17,E,"7, 10","A hypothetical missed warning would reduce trust, but she'd still keep using the app rather than abandon it, while relying less than 100% on it and continuing to look around herself."
+P17,F,11,"Felt the setup was one-sided and not fully realistic, though better than she'd expected going in."
+P17,G,TagA,"Suggested the system shouldn't sound at all if she's already visually alert; proposed vibration as sufficient if the phone is in a pocket, provided the pattern is distinct from a normal notification."
+P17,F,11,"Recounted a real near-miss: looking at her phone on a small street, a car passed roughly 50cm away – used to contextualize why she values the concept despite critiquing its execution."
+P18,A,"1, TagB","Clearly distinguishable, but didn't immediately know how to interpret the red-bar area under Adaptive beyond a short explanatory hint."
+P18,B,3,"Sometimes felt it may have been too late since he was already on the street, but overall judged there to be enough time."
+P18,B,"4, 6b","Stopped immediately on first exposure; reacted less quickly on later trials, noting reaction speed depends on how often the system proves correct (false positives breed under-reaction)."
+P18,C,5,"Under the full-screen VHA overlay, was unable to keep reading the chat at all; under the red bar, was less sure it fully kept him from continuing to check the phone."
+P18,D,6a,On one Adaptive trial only saw the red bar without the VHA stage and wasn't sure why.
+P18,D,"11, 6c",Felt mildly annoyed once early on but attributed this to knowing it was a simulation; expected a real situation would not feel the same way.
+P18,D,2,"Could see using either system long-term, contingent entirely on real-world reliability and responsiveness."
+P18,E,"8, 9",Adaptive (firing earlier) inspired more reliance; trust did not change much within the session.
+P18,E,"10, 6a","A hypothetical missed real-danger warning would nearly destroy his trust, given the possible severity (injury or death); explicitly preferred a system biased toward false positives over false negatives."
+P18,F,11,Setup felt realistic to him.
+P18,F,11,Reports having personally adopted a habit of not looking at his phone at all when approaching a street – a stronger real-world norm than the study's dual-task paradigm requires; worried that trusting a tested system might erode this habit.
+P18,G,TagA,"Liked the acoustic component of Baseline and suggested adding it to the red-bar stage too, since the spatial-only cue alone didn't feel sufficiently communicative; also suggested the red bar needs its own sound, and noted he hadn't noticed the synced vibration at all."
+P18,E,–,"Reasoned that if she came to trust a tested system, she might become less careful, whereas she currently defaults to watching the street rather than the phone."
+P18,E,9,Felt the spatial/directional information wasn't as communicative as the system intended it to be.
+P19,A,"1, 3","Distinguished clearly; Adaptive gave more time to react via its early red stage, while Baseline sometimes fired only once the car was already close, and occasionally missed a crossing car entirely."
+P19,A,"2, 8",Preferred Adaptive – felt more secure and learned quickly to rely on it; Baseline sometimes required an abrupt run to safety.
+P19,B,"3, 4","Under Adaptive, the early red cue let her plan (speed up, or step back and wait); Baseline sometimes felt too late for a considered reaction."
+P19,C,"5, 8",Adaptive took less mental effort since she knew to stop texting on the red cue; Baseline took more effort because distrust made her glance up at traffic more often.
+P19,D,6c,Warnings themselves were not annoying; the only frustration was when a warning felt like it came too late relative to the car's proximity.
+P19,D,2,Would tolerate Adaptive long-term.
+P19,E,"7, 8","Trusted Adaptive around 90% based on its demonstrated reliability during the session; trusted Baseline only about 30%, since it made her feel insecure."
+P19,E,9,Felt Adaptive better tracked situational urgency (e.g. a car appearing around a corner) than Baseline.
+P19,E,"8, 10",A hypothetical missed warning would reduce trust in whichever system failed; distrust of Baseline was partly rooted in its Catch-trial-like timing already feeling unreliable.
+P19,F,11,"Described her real-world habit as looking left and right while waiting to cross, but not looking at the phone at all during the actual crossing – a stronger real-world norm than the study's forced dual-task."
+P19,D,6c,Compared the alarm to a repeating alarm clock – annoying after enough repetition.
+P19,Closing,TagA,Suggested extending scope to other road users such as cyclists.
+P19,Closing,2,Referenced prior knowledge of ADAS (automatic braking + warning tone) as a mental-model anchor for evaluating the system.
+P20,A,"1, 2, 3","Distinguished the systems by timing/intensity; Adaptive's pre-warning felt less intense/more predictable, Baseline felt more suddenly scary."
+P20,A,"2, TagA",Preferred Adaptive for being less sudden and for showing direction; described it as appropriately subtle while still conveying urgency.
+P20,B,3,Adaptive occasionally felt a bit too early.
+P20,B,"4, 7","Tended to keep going and self-assess rather than react automatically, valuing the system as a ""sense enhancement"" rather than a replacement for her own judgement."
+P20,C,5,Environmental/car sounds helped her assess situations independent of the alert itself.
+P20,D,"8, 6b","Paid less attention to Adaptive's early red marker over repeated exposure, but explicitly linked this to growing trust in its predictability, not annoyance."
+P20,D,2,Would tolerate the Adaptive system long-term.
+P20,E,7,"Said she doesn't need the system to work 100% of the time to still value it as a supplement to her own peripheral awareness; a single miss wouldn't worry her, though a pattern of misses would."
+P20,F,11,Felt fairly natural once adjusted; noted she walked a bit slower than she would in reality since the simulated vehicle needed time to react.
+P20,G,TagA,Suggested a more gradual onset (starting at the edge of the screen and filling in) so the growing overlay itself communicates proximity.
+P20,D,6a,"Felt a full alert would be inappropriate once already out on the road (risk of shock/freezing mid-crossing), and suggested the heavy alert sound should only trigger while a hazard is still approaching, not once it's passing or leaving."
+P21,A,"1, 4","Could clearly tell the systems apart; used the Adaptive tone as a pre-warning cue, whereas Baseline's acoustic-only alert almost always startled her."
+P21,A,2,Preferred Adaptive.
+P21,B,"3, 4","More often felt she had plenty of time; consistently stopped first, then assessed, rather than continuing to walk."
+P21,C,5,Found the dual task manageable with no perceived difference between systems.
+P21,G,TagA,Valued the red stripe as calmer than the loud tone precisely because attention is already on the phone.
+P21,F,11,"Noted the lab setup made her walk straight ahead ""stubbornly"" in a way she wouldn't in real life."
+P21,Closing,TagA,"Suggested making the alert customizable – sound on/off, stripe on/off, vibration on/off."
+P21,Closing,TagA,Suggested the concept could extend beyond phone distraction to other sources of pedestrian distraction.
+P22,A,"1, 3","Initially confused by Adaptive (""not sure what it was and what it was going to do""); noted the red bar sometimes fired a bit early (looked right, saw no car yet) but was mostly reliable."
+P22,A,"2, TagA","Preferred Adaptive for its quick visual directional indicator, which reacted before the sound cue; flagged that Baseline's loud alert with an incorrect implied direction could be actively dangerous when a car was already close."
+P22,B,3,"Baseline left barely any time to react, especially when combined with directional ambiguity; Adaptive gave more time by separating ""where to look"" from ""how close is it."""
+P22,B,"4, 9","Reported an absolute immediate urge to stop; under Baseline stopped but remained unsure where the car actually was, whereas under Adaptive the visual indicator plus alarm resolved that ambiguity."
+P22,C,5,"Did not find the dual task very demanding – described his own vigilance as somewhat ""loose"" (i.e., he personally tends to forget to look around), so the system's cueing carried more of the awareness burden for him."
+P22,D,6a,"Judged Baseline's issue as misdirection rather than unnecessary firing; rated Adaptive's two stages both as necessary, estimating the VHA stage's added usefulness at roughly 6/10 once the visual cue was already present."
+P22,D,6b,"Reported ignoring the ""f"" stage once and returning to texting, at which point VHA successfully re-engaged his attention."
+P22,D,"6b, 6c",Not annoying – felt used to it by the end; by the final trials could anticipate from the visual cue alone that the sound was about to play.
+P22,D,2,"Would clearly favour Adaptive long-term; felt Baseline's ""look up"" alone wasn't informative enough and cost time reorienting."
+P22,E,"8, 9",Trusted Adaptive more than Baseline because it offered two distinct stages/chances to react; associated more indicators directly with more trust.
+P22,E,10,"Explicitly reasoned that if the system failed, he would frame it as his own lapse in awareness (over-reliance) rather than purely a system failure, and that the appropriate response would be to recalibrate his own attention, not simply distrust the system."
+P22,F,11,"Setup felt realistic enough, albeit on a slightly smaller/shorter road than a typical street."
+P22,G,TagA,Suggested tightening the timing window between the visual cue and the sound cue by a few hundred milliseconds for Adaptive.
+P22,B,"3, 4","Described one instance where the early visual cue appeared before any car was visible, prompting him to go back to texting."
+P22,Closing,2,Said he would ultimately rather perceive and react to the car itself than to the alarm/system mediating it – a preference for direct over mediated hazard perception.
+P23,B,TagA,"Comes from a country with opposite traffic-side conventions, so sometimes looked the wrong way; relied on sound plus spatial information to compensate."
+P23,E,"7, 8","Trust depended on timing accuracy; a warning that fires too close to the end of the crossing feels less trustworthy; a gap with no warning left her briefly confused, prompting her to double-check herself."
+P23,E,10,"If a warning had failed once in a genuinely dangerous moment, she would stop trusting the system and stop relying on it."
+P23,F,11,Felt the simulation could be more immersive (suggested AR/VR) and that a virtual vs. physically-covered distance felt different.
+P23,G,TagA,"Preferred red over orange for the warning colour, as red is more strongly associated with danger."
+P23,A,1,"Confirmed noticing all combinations of stage presence across Adaptive trials (neither/only ""f""/only VHA/both) – supports the manipulation check."
+P23,B,4,"Reported perceiving it as though all cars were stopping for her, and consequently not stopping herself while walking after an alarm – a pattern consistent with automation complacency."
+P23,F,11,Described a minor traffic-adjacent incident during the session: looked the wrong way and kept walking because of the reversed left/right traffic convention relative to her home country.
+P24,A,"1, 6b","Initially confused by and ignored the Adaptive red bar on first exposure, but learned to stop on it immediately by the second trial."
+P24,A,2,"Preferred the Adaptive system, valuing the chance to stop and let cars pass once he'd learned the cue."
+P24,B,"3, 4","Had enough time to react; the abrupt, aggressive sound reliably stopped him immediately."
+P24,B,8,Each successful alarm made him more reliant on the system rather than his own judgement of the street.
+P24,D,"6a, TagA","Nothing felt out of place, but noted redundancy: once he had already stopped on the red-bar cue, the subsequent VHA alarm felt unnecessary."
+P24,D,6c,"Never found the alerts annoying – framed the situation as literally life-and-death, so intensity felt appropriate."
+P24,E,"8, 9","Trust grew with use; felt Adaptive ""understood"" better, since it flagged distant/unseen cars before they became visually obvious."
+P24,E,10,A missed warning in a genuinely dangerous moment would lead him to stop using the system altogether.
+P24,F,11,Noted that knowing the lab environment posed no real accident risk shaped her behaviour.
+P25,A,"1, 2",Systems felt quite similar; slight preference for Baseline as marginally more precise – every alarm on the right side did correspond to an actual car.
+P25,C,"5, 8","No felt difference in effort between conditions; effort felt lower under Baseline, partly attributed to already being familiar with it by that point."
+P25,D,"6a, 6c","Loud signal did not feel like it could become annoying, since she framed it as actively protective."
+P25,D,2,"Would prefer Baseline long-term, feeling it worked better for her personally."
+P25,E,3,Felt Baseline gave better and more precise timing to react to different situations.
+P25,E,10,A missed warning would reduce (not eliminate) trust – she would still use the system but stay more personally vigilant.
+P25,F,11,Did not feel fully realistic given the absence of real physical risk.
+P25,F,11,"Explicitly said that in a real situation she would look before crossing rather than at her phone, specifically because in the lab she knew nothing would actually happen to her."
+P25,Closing,TagA,"Suggested varying the alert tone with vehicle distance, similar to a proximity-warning system."
+P25,Closing,2,"Felt the pairing of the ""look up"" text cue with the acoustic signal worked well together."
+P25,Closing,TagA,Noted that having (or not having) an initial explanation/introduction to the system made a difference to her experience.
+P26,A,"1, TagA",Immediately noticed the Adaptive system's earlier red-bar indication and the directional arrow overlay.
+P26,A,2,"Preferred Adaptive as the ""more sophisticated"" system for indicating danger earlier."
+P26,B,"3, 4",Timing felt good; the early cue prompted him to look sooner and raised alertness ahead of the main alert.
+P26,C,"5, 8",Mental load was rather high overall; found it easier to trust and therefore focus on texting under Adaptive; trust in Adaptive was higher for him.
+P26,D,6c,Found the alerts annoying but necessary – the red bar blocking input was framed as a justified trade-off.
+P26,D,2,"Preferred Adaptive long-term, reasoning that its added friction made it more useful, not less tolerable."
+P26,E,9,Found Adaptive more predictable because its staged escalation communicated more about what the system was doing.
+P26,F,11,Would never use a phone this way in real traffic; this did not otherwise distract him much in the lab.
+P26,G,TagA,His professional background in Brake Assist / driving-simulation work made the scenario easy to accept as realistic.
+P27,A,"1, 3","Adaptive's pre-signal (red stripe) sometimes appeared before the vehicle was visible, which he read as counterintuitive, followed half a second later by the VHA alert once the car appeared."
+P27,A,2,Preferred Baseline for delivering the alert at what felt like the right proximity-based moment.
+P27,B,"3, 4","Adaptive's extra lead time did not feel beneficial to him; after initial reflexive stops, later settled into calmer, self-assessed judgements."
+P27,C,5,"Crossing while talking took real mental effort (occasional typos from multitasking); Adaptive's red bar ""did not really make a difference"" despite the extra second it provided."
+P27,D,"6a, 6c","Preferred over- to under-warning; not annoyed – expected repetition made the alert's seriousness feel consistent, though the surprise factor flattened over the session."
+P27,D,2,Would tolerate Baseline long-term.
+P27,Closing,TagA,Suggested showing proximity and speed of oncoming vehicles via colour-coding.
+P27,Closing,TagA,"Emphasized giving the right amount of information without inducing panic, to support a quick decision."
+P27,Closing,TagB,"Asked, after his first trial, whether the ""f"" stage was actually part of the warning system at all – direct evidence of the red-bar comprehension gap."
+P28,A,1,Unsure whether a directional icon/arrow was consistently present – described it as blinking too fast to confirm.
+P28,A,"2, TagA","Slight preference for Adaptive, valuing the easier-to-test directional cue, though felt the visual design of the two stages did not feel cohesive together."
+P28,B,3,"Time to react varied – sometimes plenty, sometimes very little, depending on the trial."
+P28,B,4,No strong urge to stop immediately; sometimes glanced up but continued assessing on her own terms.
+P28,C,"5, 11","High perceived mental load overall – attributed partly to using an unfamiliar phone/chat and partly to not normally texting while crossing; noted this felt inconsistent with her own questionnaire answers, which hadn't flagged mental load."
+P28,D,6a,"Framed most warnings as appropriate rather than unnecessary, given that under normal conditions she wouldn't expect a warning unless truly needed."
+P28,D,6b,With time paid less attention to the warnings.
+P28,D,2,"Doubted she would use the system, but flagged this as partly a limitation of the study's forced dual-task design rather than of the system itself."
+P28,Closing,TagA,"Bundled several concrete suggestions: add vibration, warn earlier, allow more time to read the warning, and include a short onboarding tutorial before first use."
+P28,Closing,11,"Said that because the lab setup didn't make her feel real danger, her reactions did not fully mirror how she'd react to genuine risk."
+P29,A,"1, TagB","Noted she could keep typing with the left part of the keyboard visible under Adaptive's partial overlay, and questioned what the red bar was communicating."
+P29,A,2,Preferred Baseline (the full-screen orange overlay) for conveying urgency unambiguously.
+P29,B,3,"Reported having time to react, including the option to simply stop mid-crossing."
+P29,C,5,"High but manageable workload, since the conversation topic was substantively engaging; continued typing through the red-bar stage, which did not make her as cautious as the full overlay did."
+P29,D,6b,Paid less attention to the road specifically because she trusted the system would warn her.
+P29,D,2,Would prefer Baseline long-term.
+P29,E,"8, 9",Trusted the system fully to the point of no longer checking the road herself; felt Adaptive's two distinct stages showed more situational awareness (before vs. during crossing).
+P29,E,10,A missed real-danger warning would make her reconsider using a phone while walking at all.
+P29,Closing,2,Positively noted liking both the icon design and the vibration feedback.
+P29,Closing,TagA,Suggested the delete/reset control should remain fully accessible rather than being partly covered by the overlay.
+P29,B,3,"Believed she had nearly been hit during her first run, illustrating how differently individual participants judge the same collision proximity."
+P29,A,"1, 4","Contrasted the two systems mechanically: Baseline's full-screen block physically prevented her from continuing to type, whereas Adaptive's partial overlay left her still tempted to keep texting."
+P29,F,11,"Said she doesn't normally walk and use her phone simultaneously in real life, aside from occasional GPS use."
+P30,A,"1, TagB","Distinguished a red-line-plus-""look up"" sequence, but the line alone was initially unclear – wondered if it signalled a phone malfunction."
+P30,A,TagA,"Felt a combination of both channels would be most effective, since either the look-up cue or the red bar alone could be overlooked on its own."
+P30,B,3,Felt he needed more lead time; warnings sometimes left barely any time to react.
+P30,B,4,"Stopped, looked up, and assessed the situation himself once warned."
+P30,D,"11, 6a","Flagged one instance where the alarm fired before the vehicle had actually turned, reading it as the system ""not acting well"" in that specific scenario."
+P30,D,6c,"Did not find the alerts annoying, framing the system as there to help; noted attention could lapse during a call or while reading, but that using the phone while crossing shouldn't happen regardless."
+P30,D,"2, TagA",Would favour the look-up/VHA channel long-term as more efficient; felt the red bar risks being overlooked without user training.
+P30,E,7,Rated trust in the look-up/VHA channel at 70–80% vs. 40–50% for the red bar alone; felt combining both channels raised trust further.
+P30,E,10,"A single missed warning in a genuinely dangerous scenario would be ""catastrophic"" and stop him using the system again."
+P30,F,11,Did not feel like a real-life experience – the projected car was not physically approaching him.
+P30,F,11,Said he would not normally type while crossing a street in reality.
+P30,Closing,TagA,Wanted additional information: how far away and how many vehicles were approaching.
+P30,Closing,TagA,Raised technical concerns about sensor/detection accuracy and suggested the system integrate with other sensing/fusion systems – a systems-engineering-level critique rather than a UX one.
