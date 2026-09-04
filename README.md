@@ -13,7 +13,7 @@ in a within-subject user study (N=30).
 | Folder | Description |
 |---|---|
 | [`pre_study/`](./pre_study) | Wizard-of-Oz scripts used for the pilot/pre-study phase |
-| [`main_study/`](./main_study) | Simulation and bridge scripts used to run the main study (N=30) |
+| [`main_study/`](./main_study) | Simulation and analysis scripts used for the main study (N=30) |
 | [`smombie_bridge/`](./smombie_bridge) | Flutter Android app running on the participant's smartphone, receiving V2P alerts over UDP (used in both the pre-study and main study) |
 
 Each folder contains its own README with setup and usage instructions.
