@@ -10,9 +10,10 @@ H1 — Reaction Time (RT) & Time-to-Collision-at-Response (TTC-R)
 ── H1a TTC-R (s) — true kinematic, >= 3 trials/cond. (N complete pairs = 26) ─
   Adaptive : M=2.600  SD=0.999
   Baseline : M=1.897  SD=0.379
-  [Shapiro-Wilk on differences: p=0.018 (non-normal -> nonparametric used)]
+  [Shapiro-Wilk on differences: p=0.0177 (non-normal -> nonparametric used)]
   Wilcoxon signed-rank: W = 57.000, p = 0.0018 **
   Cohen's d = 0.699   Delta (Adaptive-Baseline) = +0.703
+  [H1a TTC-R] Mdn (IQR): Adaptive=2.325 (1.879-3.075), Baseline=1.933 (1.685-2.221); median paired diff=+0.347; higher under Adaptive: 18 of 26
   [INFO] 26 of 27 people have >= 3 resolved ttc_at_actual_response trials/condition. Requires rt_results_with_true_ttc.csv (compute_ttc_r.py output).
 [EXCLUDED from baseline-approach descriptive only] PID(s): [3, 4, 15]
 
@@ -21,14 +22,14 @@ H1 — Reaction Time (RT) & Time-to-Collision-at-Response (TTC-R)
 ── H1b RT — main (stop/run/run_back, >= 3 trials/cond.) (N complete pairs = 16) ─
   Adaptive : M=0.830  SD=0.450
   Baseline : M=0.736  SD=0.445
-  [Shapiro-Wilk on differences: p=0.038 (non-normal -> nonparametric used)]
+  [Shapiro-Wilk on differences: p=0.0384 (non-normal -> nonparametric used)]
   Wilcoxon signed-rank: W = 68.000, p = 1.0000 n.s.
   Cohen's d = 0.152   Delta (Adaptive-Baseline) = +0.095
 
 ── H1b RT — sensitivity (ALL people, incl. <3 trials/cond.) (N complete pairs = 21) ─
   Adaptive : M=0.895  SD=0.422
   Baseline : M=0.737  SD=0.465
-  [Shapiro-Wilk on differences: p=0.058 (normal)]
+  [Shapiro-Wilk on differences: p=0.0579 (normal)]
   Paired t-test: t(20) = 1.182, p = 0.2510 n.s.
   Cohen's d = 0.258   Delta (Adaptive-Baseline) = +0.158
   [WARNING] Includes people with only 1-2 trials -> noisier person means. Robustness check only, not in the multiple-comparison correction below.
@@ -36,10 +37,43 @@ H1 — Reaction Time (RT) & Time-to-Collision-at-Response (TTC-R)
 ── H1b RT — extended outcomes (+ continue_walk/not_in_time, >= 3 trials/cond.) (N complete pairs = 20) ─
   Adaptive : M=0.881  SD=0.513
   Baseline : M=0.783  SD=0.524
-  [Shapiro-Wilk on differences: p=0.038 (non-normal -> nonparametric used)]
+  [Shapiro-Wilk on differences: p=0.0381 (non-normal -> nonparametric used)]
   Wilcoxon signed-rank: W = 100.000, p = 0.8695 n.s.
   Cohen's d = 0.167   Delta (Adaptive-Baseline) = +0.098
   [NOTE] Point 5 (chat): reported separately from the main RT test, not merged — response_continue_walk/not_in_time reflect a different response quality than an evasive stop/run/run_back.
+
+── H1b RT — median / IQR (main spec.) ────────────────────
+  [H1b RT] Mdn (IQR): Adaptive=0.881 (0.401-1.079), Baseline=0.634 (0.435-1.053); median paired diff=-0.061; higher under Adaptive: 8 of 16
+
+  [FLOOR CHECK, post hoc] Pairs with a person-mean RT < 0.2 s: PIDs [14, 16, 18, 27]
+
+── H1b RT — exploratory, excl. person means < 0.2 s (N complete pairs = 12) ─
+  Adaptive : M=0.797  SD=0.333
+  Baseline : M=0.884  SD=0.400
+  [Shapiro-Wilk on differences: p=0.3063 (normal)]
+  Paired t-test: t(11) = -0.791, p = 0.4459 n.s.
+  Cohen's d = -0.228   Delta (Adaptive-Baseline) = -0.087
+  [NOTE] Exploratory robustness check only, not in the multiple-comparison correction.
+
+── Detection-floor pile-up (trial level, main-spec outcomes, RT < 0.2 s) ──
+  Overall: 53 of 182 (29.1%); min RT = 0.151 s
+  Adaptive: 28 of 98 (28.6%)
+  Baseline: 25 of 84 (29.8%)
+  type=gaze_side: 2 of 33 (6.1%)
+  type=gaze_up: 5 of 11 (45.5%)
+  type=run: 36 of 73 (49.3%)
+  type=run_back: 3 of 6 (50.0%)
+  type=stop: 7 of 59 (11.9%)
+  PIDs with >=1 such trial: 17 of 23
+  TTC-R trials (lookup ok): 76 of 255 (29.8%) below 0.2 s
+
+── H1a TTC-R — post hoc, excl. trials with RT < 0.2 s (N complete pairs = 14) ─
+  Adaptive : M=2.321  SD=0.699
+  Baseline : M=1.594  SD=0.324
+  [Shapiro-Wilk on differences: p=0.0819 (normal)]
+  Paired t-test: t(13) = 3.752, p = 0.0024 **
+  Cohen's d = 1.003   Delta (Adaptive-Baseline) = +0.727
+  [NOTE] Post-hoc robustness check only, not in the multiple-comparison correction.
 
 ── H1c Collision occurrence (>=1 collision per block) (McNemar, paired binary, N = 30) ──────────
   Adaptive rate : 33.3%   Baseline rate : 43.3%
@@ -58,28 +92,28 @@ H2 — Cognitive Load (NASA-TLX)  /  H3 — Acceptance (Van der Laan)  /  H4 —
 ── H2  tlx_weighted_score (cognitive load, lower=better for Adaptive) (N complete pairs = 30) ─
   Adaptive : M=39.857  SD=22.338
   Baseline : M=40.712  SD=21.196
-  [Shapiro-Wilk on differences: p=0.980 (normal)]
+  [Shapiro-Wilk on differences: p=0.9805 (normal)]
   Paired t-test: t(29) = -0.301, p = 0.7657 n.s.
   Cohen's d = -0.055   Delta (Adaptive-Baseline) = -0.855
 
 ── H3  vdl_usefulness (acceptance, higher=better for Adaptive) (N complete pairs = 30) ─
   Adaptive : M=1.320  SD=0.764
   Baseline : M=1.173  SD=0.805
-  [Shapiro-Wilk on differences: p=0.018 (non-normal -> nonparametric used)]
+  [Shapiro-Wilk on differences: p=0.0179 (non-normal -> nonparametric used)]
   Wilcoxon signed-rank: W = 102.500, p = 0.1043 n.s.
   Cohen's d = 0.192   Delta (Adaptive-Baseline) = +0.147
 
 ── H3  vdl_satisfying (acceptance, higher=better for Adaptive) (N complete pairs = 30) ─
   Adaptive : M=0.308  SD=1.012
   Baseline : M=0.283  SD=1.019
-  [Shapiro-Wilk on differences: p=0.358 (normal)]
+  [Shapiro-Wilk on differences: p=0.3580 (normal)]
   Paired t-test: t(29) = 0.159, p = 0.8745 n.s.
   Cohen's d = 0.029   Delta (Adaptive-Baseline) = +0.025
 
 ── H4  tia_trust_in_automation_core (trust, higher=better for Adaptive) (N complete pairs = 30) ─
   Adaptive : M=3.283  SD=1.096
   Baseline : M=3.333  SD=1.069
-  [Shapiro-Wilk on differences: p=0.349 (normal)]
+  [Shapiro-Wilk on differences: p=0.3494 (normal)]
   Paired t-test: t(29) = -0.280, p = 0.7812 n.s.
   Cohen's d = -0.051   Delta (Adaptive-Baseline) = -0.050
 

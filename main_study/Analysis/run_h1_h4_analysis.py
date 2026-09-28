@@ -202,7 +202,7 @@ def paired_test(a_vals, b_vals, label: str) -> tuple[str, dict]:
 
     d = diff.mean() / (diff.std(ddof=1) + 1e-9)
     sig = "***" if p < .001 else "**" if p < .01 else "*" if p < .05 else "n.s."
-    shapiro_note = (f"Shapiro-Wilk on differences: p={shapiro_p:.3f} "
+    shapiro_note = (f"Shapiro-Wilk on differences: p={shapiro_p:.4f} "
                      f"({'normal' if normal else 'non-normal -> nonparametric used'})"
                      if shapiro_p is not None else "")
     lines.append(f"  [{shapiro_note}]")
@@ -263,6 +263,72 @@ def descriptive_table(ss: pd.DataFrame, columns: dict, title: str) -> str:
     return "\n".join(out)
 
 
+RT_FLOOR_S = 0.2  # person-mean RTs below this are at the lower end of plausible latencies
+
+def median_summary(paired: pd.DataFrame, label: str) -> str:
+    a, b = paired["a"], paired["b"]
+    diff = a - b
+    return (f"  [{label}] Mdn (IQR): "
+            f"Adaptive={np.median(a):.3f} ({np.percentile(a, 25):.3f}-{np.percentile(a, 75):.3f}), "
+            f"Baseline={np.median(b):.3f} ({np.percentile(b, 25):.3f}-{np.percentile(b, 75):.3f}); "
+            f"median paired diff={np.median(diff):+.3f}; "
+            f"higher under Adaptive: {(diff > 0).sum()} of {len(diff)}")
+
+
+def rt_median_and_floor_check(rt_paired: pd.DataFrame, floor: float = RT_FLOOR_S) -> str:
+    """Median/IQR for the main RT spec + exploratory (post-hoc) check excluding
+    pairs with a person-mean RT below `floor`. Robustness check only."""
+    a, b = rt_paired["a"], rt_paired["b"]
+    lines = ["\n── H1b RT — median / IQR (main spec.) " + "─" * 20,
+             median_summary(rt_paired, "H1b RT")]
+
+    low = rt_paired[(a < floor) | (b < floor)]
+    kept = rt_paired.drop(index=low.index)
+    lines.append(f"\n  [FLOOR CHECK, post hoc] Pairs with a person-mean RT < {floor} s: "
+                 f"PIDs {sorted(low.index.tolist())}")
+    txt, _ = paired_test(kept["a"].values, kept["b"].values,
+                         f"H1b RT — exploratory, excl. person means < {floor} s")
+    lines.append(txt)
+    lines.append("  [NOTE] Exploratory robustness check only, not in the "
+                 "multiple-comparison correction.")
+    return "\n".join(lines)
+
+DETECTION_FLOOR_S = 0.15  # = MIN_PLAUSIBLE_RT in analyze_rt_video.py
+
+def floor_sensitivity_report(rt_h1: pd.DataFrame, floor: float = 0.20) -> str:
+    """Trial-level share of RT values near the detection floor (main-spec outcomes)
+    + post-hoc H1a TTC-R sensitivity excluding trials with RT < `floor`."""
+    v = rt_h1[rt_h1["effective_outcome"].isin(RT_ELIGIBLE_OUTCOMES)
+              & rt_h1["rt_s"].notna()]
+    near = v["rt_s"] < floor
+    lines = [f"\n── Detection-floor pile-up (trial level, main-spec outcomes, RT < {floor} s) ──",
+             f"  Overall: {near.sum()} of {len(v)} ({near.mean():.1%}); min RT = {v['rt_s'].min():.3f} s"]
+    for mode, g in v.groupby("mode"):
+        n = (g["rt_s"] < floor)
+        lines.append(f"  {MODE_TO_CONDITION[mode]}: {n.sum()} of {len(g)} ({n.mean():.1%})")
+    for rtype, g in v.groupby("reaction_type"):
+        n = (g["rt_s"] < floor)
+        lines.append(f"  type={rtype}: {n.sum()} of {len(g)} ({n.mean():.1%})")
+    lines.append(f"  PIDs with >=1 such trial: {v.loc[near, 'pid'].nunique()} of {v['pid'].nunique()}")
+
+    ok_all = rt_h1[rt_h1["ttc_lookup_status"] == "ok"]
+    n_ok = (ok_all["rt_s"] < floor)
+    lines.append(f"  TTC-R trials (lookup ok): {n_ok.sum()} of {len(ok_all)} ({n_ok.mean():.1%}) below {floor} s")
+
+    sub = rt_h1[~(rt_h1["rt_s"] < floor)]          # NaN-RT bleibt drin, wie im Hauptlauf
+    ok = sub[sub["ttc_lookup_status"] == "ok"]
+    counts = ok.groupby(["pid", "mode"])["ttc_at_actual_response"].count().unstack("mode")
+    means = ok.groupby(["pid", "mode"])["ttc_at_actual_response"].mean().unstack("mode")
+    enough = (counts["a"].fillna(0) >= MIN_TRIALS_PER_CONDITION) & \
+             (counts["b"].fillna(0) >= MIN_TRIALS_PER_CONDITION)
+    paired = means[enough].dropna()
+    txt, _ = paired_test(paired["a"].values, paired["b"].values,
+                         f"H1a TTC-R — post hoc, excl. trials with RT < {floor} s")
+    lines.append(txt)
+    lines.append("  [NOTE] Post-hoc robustness check only, not in the multiple-comparison correction.")
+    return "\n".join(lines)
+
+
 def analyze_h1(trials: pd.DataFrame, rt: pd.DataFrame) -> tuple[str, pd.DataFrame, list]:
     out = ["=" * 65, "H1 — Reaction Time (RT) & Time-to-Collision-at-Response (TTC-R)",
            "=" * 65]
@@ -289,6 +355,8 @@ def analyze_h1(trials: pd.DataFrame, rt: pd.DataFrame) -> tuple[str, pd.DataFram
     else:
         txt, res = "\n  [H1a TTC-R] Not enough trials yet to test.", {"label": "H1a TTC-R", "n": 0, "p": np.nan}
     out.append(txt); test_results.append(res)
+    if len(ttc_paired) > 0:
+        out.append(median_summary(ttc_paired, "H1a TTC-R"))
     out.append(f"  [INFO] {ttc_enough.sum()} of {len(ttc_counts)} people have >= "
                f"{MIN_TRIALS_PER_CONDITION} resolved ttc_at_actual_response trials/condition. "
                f"Requires rt_results_with_true_ttc.csv (compute_ttc_r.py output).")
@@ -337,6 +405,8 @@ def analyze_h1(trials: pd.DataFrame, rt: pd.DataFrame) -> tuple[str, pd.DataFram
     out.append("  [NOTE] Point 5 (chat): reported separately from the main RT test, not merged — "
                "response_continue_walk/not_in_time reflect a different response quality than "
                "an evasive stop/run/run_back.")
+    out.append(rt_median_and_floor_check(rt_paired))
+    out.append(floor_sensitivity_report(rt_h1))
 
     # --- Collision rate (McNemar, paired binary, effective_outcome) ---
     hit_all = trials[trials["trial_type"] == "hit"]
