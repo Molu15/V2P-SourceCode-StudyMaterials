@@ -37,6 +37,7 @@ import pandas as pd
 from scipy import stats
 from statsmodels.stats.contingency_tables import mcnemar
 from statsmodels.stats.multitest import multipletests
+from scipy.stats import binomtest
 
 EXCLUDE_FROM_H1 = {3, 4, 15}    # P3: Too many timing errors.
                                 # P4: Adaptive video missing entirely.
@@ -166,6 +167,43 @@ def load_demographics(data_dir: Path) -> pd.DataFrame:
 
 
 # ─────────────────────────────────────────────────────────
+# EFFECT SIZES & CONFIDENCE INTERVALS
+# ─────────────────────────────────────────────────────────
+def rank_biserial(diff) -> float:
+    """Matched-pairs rank-biserial correlation (Kerby, 2014).
+    Zero differences are dropped, consistent with scipy's default
+    zero_method='wilcox' in stats.wilcoxon(). Positive r = Adaptive > Baseline."""
+    d = np.asarray(diff, dtype=float)
+    d = d[d != 0]
+    ranks = stats.rankdata(np.abs(d))
+    r_plus = ranks[d > 0].sum()
+    r_minus = ranks[d < 0].sum()
+    return (r_plus - r_minus) / (r_plus + r_minus)
+
+
+def ci_mean_diff(diff, conf: float = 0.95) -> tuple[float, float, float]:
+    """t-based CI of the mean paired difference (companion to the paired t-test)."""
+    d = np.asarray(diff, dtype=float)
+    n = len(d)
+    m = d.mean()
+    half = stats.t.ppf((1 + conf) / 2, n - 1) * d.std(ddof=1) / np.sqrt(n)
+    return m, m - half, m + half
+
+
+def hodges_lehmann_ci(diff, conf: float = 0.95) -> tuple[float, float, float]:
+    """Hodges-Lehmann estimate (median of Walsh averages) with a distribution-free
+    CI (normal approximation for the critical rank). Companion to the Wilcoxon test."""
+    d = np.asarray(diff, dtype=float)
+    n = len(d)
+    walsh = np.sort([(d[i] + d[j]) / 2 for i in range(n) for j in range(i, n)])
+    M = len(walsh)
+    z = stats.norm.ppf((1 + conf) / 2)
+    k = int(np.floor(n * (n + 1) / 4 - z * np.sqrt(n * (n + 1) * (2 * n + 1) / 24)))
+    k = max(k, 1)
+    return np.median(walsh), walsh[k - 1], walsh[M - k]
+
+
+# ─────────────────────────────────────────────────────────
 # H1 — RT & TTC-R
 # ─────────────────────────────────────────────────────────
 def paired_test(a_vals, b_vals, label: str) -> tuple[str, dict]:
@@ -207,7 +245,24 @@ def paired_test(a_vals, b_vals, label: str) -> tuple[str, dict]:
                      if shapiro_p is not None else "")
     lines.append(f"  [{shapiro_note}]")
     lines.append(f"  {test_name}: {stat_label}, p = {p:.4f} {sig}")
-    lines.append(f"  Cohen's d = {d:.3f}   Delta (Adaptive-Baseline) = {diff.mean():+.3f}")
+    lines.append(f"  Cohen's d_z = {d:.3f}   Delta (Adaptive-Baseline) = {diff.mean():+.3f}")
+
+    # ── Effect size & 95 % CI matching the test actually used ──
+    if test_name.startswith("Wilcoxon"):
+        r_rb = rank_biserial(diff)
+        hl, ci_lo, ci_hi = hodges_lehmann_ci(diff)
+        lines.append(f"  Rank-biserial r = {r_rb:+.3f}   Hodges-Lehmann estimate = {hl:+.3f}, "
+                     f"95% CI [{ci_lo:+.3f}, {ci_hi:+.3f}]")
+        # Robustness only (e.g. footnote for VdL usefulness): t-test despite non-normality
+        t_rob, p_rob = stats.ttest_rel(a_vals, b_vals)
+        m_diff, t_lo, t_hi = ci_mean_diff(diff)
+        lines.append(f"  [Robustness] Paired t-test: t({n-1}) = {t_rob:.3f}, p = {p_rob:.4f}; "
+                     f"mean diff = {m_diff:+.3f}, 95% CI [{t_lo:+.3f}, {t_hi:+.3f}]")
+        result.update({"r_rb": r_rb, "hl": hl, "ci_lo": ci_lo, "ci_hi": ci_hi})
+    else:
+        m_diff, ci_lo, ci_hi = ci_mean_diff(diff)
+        lines.append(f"  Mean diff = {m_diff:+.3f}, 95% CI [{ci_lo:+.3f}, {ci_hi:+.3f}]")
+        result.update({"ci_lo": ci_lo, "ci_hi": ci_hi})
 
     result.update({"p": p, "test": test_name, "d": d})
     return "\n".join(lines), result
@@ -279,15 +334,15 @@ def rt_median_and_floor_check(rt_paired: pd.DataFrame, floor: float = RT_FLOOR_S
     """Median/IQR for the main RT spec + exploratory (post-hoc) check excluding
     pairs with a person-mean RT below `floor`. Robustness check only."""
     a, b = rt_paired["a"], rt_paired["b"]
-    lines = ["\n── H1b RT — median / IQR (main spec.) " + "─" * 20,
-             median_summary(rt_paired, "H1b RT")]
+    lines = ["\n── H1a RT — median / IQR (main spec.) " + "─" * 20,
+             median_summary(rt_paired, "H1a RT")]
 
     low = rt_paired[(a < floor) | (b < floor)]
     kept = rt_paired.drop(index=low.index)
     lines.append(f"\n  [FLOOR CHECK, post hoc] Pairs with a person-mean RT < {floor} s: "
                  f"PIDs {sorted(low.index.tolist())}")
     txt, _ = paired_test(kept["a"].values, kept["b"].values,
-                         f"H1b RT — exploratory, excl. person means < {floor} s")
+                         f"H1a RT — exploratory, excl. person means < {floor} s")
     lines.append(txt)
     lines.append("  [NOTE] Exploratory robustness check only, not in the "
                  "multiple-comparison correction.")
@@ -297,7 +352,7 @@ DETECTION_FLOOR_S = 0.15  # = MIN_PLAUSIBLE_RT in analyze_rt_video.py
 
 def floor_sensitivity_report(rt_h1: pd.DataFrame, floor: float = 0.20) -> str:
     """Trial-level share of RT values near the detection floor (main-spec outcomes)
-    + post-hoc H1a TTC-R sensitivity excluding trials with RT < `floor`."""
+    + post-hoc H1b TTC-R sensitivity excluding trials with RT < `floor`."""
     v = rt_h1[rt_h1["effective_outcome"].isin(RT_ELIGIBLE_OUTCOMES)
               & rt_h1["rt_s"].notna()]
     near = v["rt_s"] < floor
@@ -323,7 +378,7 @@ def floor_sensitivity_report(rt_h1: pd.DataFrame, floor: float = 0.20) -> str:
              (counts["b"].fillna(0) >= MIN_TRIALS_PER_CONDITION)
     paired = means[enough].dropna()
     txt, _ = paired_test(paired["a"].values, paired["b"].values,
-                         f"H1a TTC-R — post hoc, excl. trials with RT < {floor} s")
+                         f"H1b TTC-R — post hoc, excl. trials with RT < {floor} s")
     lines.append(txt)
     lines.append("  [NOTE] Post-hoc robustness check only, not in the multiple-comparison correction.")
     return "\n".join(lines)
@@ -342,7 +397,7 @@ def analyze_h1(trials: pd.DataFrame, rt: pd.DataFrame) -> tuple[str, pd.DataFram
     for pid, note in DATA_QUALITY_NOTES.items():
         out.append(f"[DATA QUALITY NOTE] P{pid}: {note}")
 
-    # --- H1a TTC-R: TRUE kinematic TTC-at-response (compute_ttc_r.py) — primary ---
+    # --- H1b TTC-R: TRUE kinematic TTC-at-response (compute_ttc_r.py) — primary ---
     rt_ttc = rt_h1[rt_h1["ttc_lookup_status"] == "ok"]
     ttc_counts = rt_ttc.groupby(["pid", "mode"])["ttc_at_actual_response"].count().unstack("mode")
     ttc_means  = rt_ttc.groupby(["pid", "mode"])["ttc_at_actual_response"].mean().unstack("mode")
@@ -351,27 +406,27 @@ def analyze_h1(trials: pd.DataFrame, rt: pd.DataFrame) -> tuple[str, pd.DataFram
     ttc_paired = ttc_means[ttc_enough].dropna()
     if len(ttc_paired) > 0:
         txt, res = paired_test(ttc_paired["a"].values, ttc_paired["b"].values,
-                                f"H1a TTC-R (s) — true kinematic, >= {MIN_TRIALS_PER_CONDITION} trials/cond.")
+                                f"H1b TTC-R (s) — true kinematic, >= {MIN_TRIALS_PER_CONDITION} trials/cond.")
     else:
-        txt, res = "\n  [H1a TTC-R] Not enough trials yet to test.", {"label": "H1a TTC-R", "n": 0, "p": np.nan}
+        txt, res = "\n  [H1b TTC-R] Not enough trials yet to test.", {"label": "H1b TTC-R", "n": 0, "p": np.nan}
     out.append(txt); test_results.append(res)
     if len(ttc_paired) > 0:
-        out.append(median_summary(ttc_paired, "H1a TTC-R"))
+        out.append(median_summary(ttc_paired, "H1b TTC-R"))
     out.append(f"  [INFO] {ttc_enough.sum()} of {len(ttc_counts)} people have >= "
                f"{MIN_TRIALS_PER_CONDITION} resolved ttc_at_actual_response trials/condition. "
                f"Requires rt_results_with_true_ttc.csv (compute_ttc_r.py output).")
 
-    # --- Old walking-speed-based value — descriptive only, NOT the confirmatory H1a test ---
+    # --- Old walking-speed-based value — descriptive only, NOT the confirmatory H1b test ---
     trials_ttc = trials_h1[~trials_h1["pid"].isin(EXCLUDE_FROM_TTC)]
     if EXCLUDE_FROM_TTC:
         out.append(f"[EXCLUDED from baseline-approach descriptive only] PID(s): {sorted(EXCLUDE_FROM_TTC)}")
     hit = trials_ttc[(trials_ttc["trial_type"] == "hit") & trials_ttc["ttc_at_response"].notna()]
     baseline_appr = hit.groupby(["pid", "mode"])["ttc_at_response"].mean().unstack("mode").dropna()
-    out.append(f"\n  [DESCRIPTIVE ONLY, not H1a] ttc_baseline_approach (pre-alarm walking-speed "
+    out.append(f"\n  [DESCRIPTIVE ONLY, not H1b] ttc_baseline_approach (pre-alarm walking-speed "
                f"extrapolation): Adaptive M={baseline_appr['a'].mean():.3f}  "
                f"Baseline M={baseline_appr['b'].mean():.3f}  (N={len(baseline_appr)})")
 
-    # --- H1b RT: strict (main) + extended-outcome + full-sensitivity ---
+    # --- H1a RT: strict (main) + extended-outcome + full-sensitivity ---
     def _rt_test(eligible_outcomes: set, label: str, apply_min_trials: bool):
         rv = rt_h1[rt_h1["effective_outcome"].isin(eligible_outcomes)]
         counts = rv.groupby(["pid", "mode"])["rt_s"].count().unstack("mode")
@@ -386,12 +441,12 @@ def analyze_h1(trials: pd.DataFrame, rt: pd.DataFrame) -> tuple[str, pd.DataFram
         return txt_, res_, paired, counts
 
     txt, res, rt_paired, rt_counts = _rt_test(
-        RT_ELIGIBLE_OUTCOMES, f"H1b RT — main (stop/run/run_back, >= {MIN_TRIALS_PER_CONDITION} trials/cond.)",
+        RT_ELIGIBLE_OUTCOMES, f"H1a RT — main (stop/run/run_back, >= {MIN_TRIALS_PER_CONDITION} trials/cond.)",
         apply_min_trials=True)
     out.append(txt); test_results.append(res)
 
     txt_sens, res_sens, _, _ = _rt_test(
-        RT_ELIGIBLE_OUTCOMES, "H1b RT — sensitivity (ALL people, incl. <3 trials/cond.)",
+        RT_ELIGIBLE_OUTCOMES, "H1a RT — sensitivity (ALL people, incl. <3 trials/cond.)",
         apply_min_trials=False)
     out.append(txt_sens)
     out.append("  [WARNING] Includes people with only 1-2 trials -> noisier person means. "
@@ -399,7 +454,7 @@ def analyze_h1(trials: pd.DataFrame, rt: pd.DataFrame) -> tuple[str, pd.DataFram
 
     txt_ext, res_ext, _, _ = _rt_test(
         RT_ELIGIBLE_OUTCOMES_EXTENDED,
-        f"H1b RT — extended outcomes (+ continue_walk/not_in_time, >= {MIN_TRIALS_PER_CONDITION} trials/cond.)",
+        f"H1a RT — extended outcomes (+ continue_walk/not_in_time, >= {MIN_TRIALS_PER_CONDITION} trials/cond.)",
         apply_min_trials=True)
     out.append(txt_ext)
     out.append("  [NOTE] Point 5 (chat): reported separately from the main RT test, not merged — "
@@ -413,10 +468,12 @@ def analyze_h1(trials: pd.DataFrame, rt: pd.DataFrame) -> tuple[str, pd.DataFram
     coll_paired = hit_all.groupby(["pid", "mode"])["collision"].mean().unstack("mode").dropna()
     coll_bin = (coll_paired > 0).astype(int)  # participant-level: had >=1 collision in that block?
     txt, res = mcnemar_test(coll_bin["a"].values, coll_bin["b"].values,
-                             "H1c Collision occurrence (>=1 collision per block)")
+                             "Exploratory: collision occurrence (>=1 collision per block)")
     out.append(txt); test_results.append(res)
-    out.append(f"  [Descriptive, trial-level] Adaptive: {coll_paired['a'].mean():.1%}   "
-               f"Baseline: {coll_paired['b'].mean():.1%}")
+    n_coll = hit_all.groupby("mode")["collision"].agg(["sum", "count"])
+    out.append(f"  [Descriptive, trial-level counts] "
+               f"Adaptive: {int(n_coll.loc['a', 'sum'])} of {int(n_coll.loc['a', 'count'])}   "
+               f"Baseline: {int(n_coll.loc['b', 'sum'])} of {int(n_coll.loc['b', 'count'])}")
 
     # --- False-stop rate (catch trials, adaptive only — see rationale below) ---
     catch = trials[trials["trial_type"] == "stop"]
@@ -489,11 +546,30 @@ def multiplicity_report(family_a: list, family_b: list) -> str:
             lines.append(f"    {labels_[idx]:50s} {pvals_[idx]:8.4f} {pa:8.4f}  {sig}")
         return lines
 
-    out += _block("A — Behavioral (H1: TTC-R, RT)", family_a)
+    out += _block("A — Behavioral (H1a: RT, H1b: TTC-R)", family_a)
     out += _block("B — Self-report (H2-H4: TLX, VdL x2, TiA)", family_b)
     out.append("\n  [NOTE] Collision occurrence (McNemar) and false-stop rate are "
                "reported with UNCORRECTED p-values as exploratory/secondary safety "
                "indicators — H1 as worded names only RT and TTC-R as confirmatory DVs.")
+    return "\n".join(out)
+
+
+# ─────────────────────────────────────────────────────────
+# INTERVIEW-BASED TESTS (exploratory, uncorrected)
+# Counts taken from the interview coding (Coding_P1-P30_EN.md), not from CSV input.
+# ─────────────────────────────────────────────────────────
+PREFERENCE_COUNTS = {"adaptive": 16, "baseline": 8, "no_clear": 6}   # code 2 (preference)
+
+
+def interview_tests() -> str:
+    out = ["\n" + "=" * 65, "INTERVIEW-BASED TESTS (exploratory, uncorrected)", "=" * 65]
+
+    # Sign test: stated preference vs. an even split (participants without a clear preference excluded)
+    a, b = PREFERENCE_COUNTS["adaptive"], PREFERENCE_COUNTS["baseline"]
+    p_sign = stats.binomtest(a, n=a + b, p=0.5, alternative="two-sided").pvalue
+    out.append(f"  Stated preference: Adaptive {a} vs Baseline {b} "
+               f"(no clear preference: {PREFERENCE_COUNTS['no_clear']}, excluded)")
+    out.append(f"  Two-sided sign test vs. even split: p = {p_sign:.4f}")
     return "\n".join(out)
 
 
@@ -519,8 +595,9 @@ def main():
     report = []
     report.append("Significance level: alpha = .05, two-tailed, for all inferential "
                    "tests below (paired t-test / Wilcoxon signed-rank / McNemar). "
-                   "Effect sizes reported as Cohen's d for paired samples "
-                   "(mean difference / SD of differences).\n")
+                   "Effect sizes: Cohen's d_z (mean difference / SD of differences) for all "
+                   "paired tests; additionally matched-pairs rank-biserial r for Wilcoxon tests. "
+                   "95% CIs: mean paired difference (t-tests), Hodges-Lehmann estimate (Wilcoxon).\n")
     h1_text, h1_wide, h1_results = analyze_h1(trials, rt)
     report.append(h1_text)
     q_text, q_results = analyze_questionnaires(ss)
@@ -544,6 +621,7 @@ def main():
     family_a = h1_results[:2]       # TTC-R, RT — matches H1 wording exactly
     family_b = q_results            # TLX, VdL-usefulness, VdL-satisfying, TiA
     report.append(multiplicity_report(family_a, family_b))
+    report.append(interview_tests())
     report.append(f"\n\nN demographics on file: {dg['pid'].nunique()}")
 
     (out_dir / "h1_h4_stats.txt").write_text("\n".join(report), encoding="utf-8")
